@@ -11,7 +11,7 @@ class OnBoarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: AppColor.backgroundColor,
         body: SafeArea(
           child: Container(
               width: double.infinity,
@@ -30,14 +30,14 @@ class OnBoarding extends StatelessWidget {
                           style: GoogleFonts.quicksand(
                               fontSize: 30,
                               fontWeight: FontWeight.w600,
-                              color: titleColor),
+                              color: AppColor.titleColor),
                           children: <TextSpan>[
                             TextSpan(
                               text: 'Aman dan Mudah',
                               style: TextStyle(
                                 decoration: TextDecoration.underline,
                                 fontWeight: FontWeight.w700,
-                                color: mainRed,
+                                color: AppColor.mainRed,
                               ),
                             ),
                             TextSpan(
@@ -45,7 +45,7 @@ class OnBoarding extends StatelessWidget {
                                 style: GoogleFonts.quicksand(
                                     fontSize: 30,
                                     fontWeight: FontWeight.w600,
-                                    color: titleColor))
+                                    color: AppColor.titleColor))
                           ]),
                     )),
                 Container(

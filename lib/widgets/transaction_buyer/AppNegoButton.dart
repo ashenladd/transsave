@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../../themes/color.dart';
 import '../../themes/fonts.dart';
-import '/themes/color.dart';
-import '/themes/fonts.dart';
 
-class AppButton extends StatelessWidget {
+class AppNegoButton extends StatelessWidget {
   final String text;
-  final double width;
   final Function()? onTap;
+  final double width;
   final bool isActive;
 
-  const AppButton(
+  const AppNegoButton(
       {super.key,
       this.text = 'text',
       this.onTap,
-      this.width = 286,
+      this.width = 90,
       this.isActive = true});
 
   @override
@@ -23,7 +22,8 @@ class AppButton extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: isActive ? AppColor.mainRed : AppColor.subtitleColor,
+            color:
+                isActive ? AppColor.backgroundColor3 : AppColor.subtitleColor,
           ),
           height: 54,
           width: width,

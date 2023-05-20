@@ -34,14 +34,14 @@ class _SignUpState extends State<SignUp> {
       body: SafeArea(
           child: Container(
         padding: EdgeInsets.all(21),
-        color: backgroundColor,
+        color: AppColor.backgroundColor,
         height: double.infinity,
         width: double.infinity,
         child: SingleChildScrollView(
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(32),
-                color: backgroundColor2),
+                color: AppColor.backgroundColor2),
             child: Column(
               children: [
                 SizedBox(
@@ -119,7 +119,7 @@ class _SignUpState extends State<SignUp> {
                         children: [
                       TextSpan(
                           text: ' Login',
-                          style: mainStyle.copyWith(color: mainRed),
+                          style: mainStyle.copyWith(color: AppColor.mainRed),
                           recognizer: TapGestureRecognizer()
                             ..onTap =
                                 () => Navigator.pushNamed(context, '/sign-up'))

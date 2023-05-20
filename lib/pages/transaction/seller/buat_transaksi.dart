@@ -3,9 +3,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:transsave/widgets/auth/AppButton.dart';
 import 'package:transsave/widgets/auth/AppTextField.dart';
-import 'package:transsave/widgets/transaction/AppRectangle.dart';
-import 'package:transsave/widgets/transaction/AppUploadContainer.dart';
-import 'package:transsave/widgets/transaction/CustomAppBar.dart';
+import 'package:transsave/widgets/transaction_seller/AppRectangleSeller.dart';
+import 'package:transsave/widgets/transaction_seller/AppUploadContainer.dart';
+import 'package:transsave/widgets/CustomAppBar.dart';
 
 import '../../../themes/color.dart';
 import '../../../themes/fonts.dart';

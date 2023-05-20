@@ -4,39 +4,42 @@ import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../themes/fonts.dart';
 
-class AppRectangle extends StatelessWidget {
+class AppRectangleBuyer extends StatelessWidget {
   final bool isJoin;
   final bool isPaid;
   final bool isThereNego;
+  final bool isNegoAccepted;
   final bool isDoneProcessed;
   final bool isSent;
   final bool isSentSuccess;
   final bool isTransactionSuccess;
 
-  const AppRectangle(
-      {super.key,
-      required this.isJoin,
-      required this.isPaid,
-      required this.isThereNego,
-      required this.isDoneProcessed,
-      required this.isSent,
-      required this.isSentSuccess,
-      required this.isTransactionSuccess});
+  const AppRectangleBuyer({
+    super.key,
+    required this.isJoin,
+    required this.isPaid,
+    required this.isThereNego,
+    required this.isNegoAccepted,
+    required this.isDoneProcessed,
+    required this.isSent,
+    required this.isSentSuccess,
+    required this.isTransactionSuccess,
+  });
 
   Widget getRectangleContent() {
-    if (!isJoin) {
+    if (isJoin && !isPaid && !isThereNego && isNegoAccepted) {
       return Column(children: [
         Text(
-          'Pembeli Belum Bergabung',
+          'Penjual Menyetujui Nego Harga',
           style: rectangleTitleStyle,
         ),
         SizedBox(
           height: 5,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 33),
+          padding: const EdgeInsets.symmetric(horizontal: 26),
           child: Text(
-            'Silahkan salin kode join dan bagikan kode join ke pembeli',
+            'Segera lakukan pembayaran untuk melanjutkan proses transaksi',
             style: rectangleSubtitleStyle,
             textAlign: TextAlign.center,
           ),
@@ -45,45 +48,45 @@ class AppRectangle extends StatelessWidget {
           height: 10,
         ),
         Text(
-          'BATAS GABUNG',
+          'BAYAR SEBELUM',
           style: rectangleTitle2Style,
         ),
         Text(
-          '16 MEI 2023 14:30 WIB',
+          '16 MEI 2023 14:35 WIB',
           style: rectangleTimeStyle,
         )
       ]);
     } else if (isJoin && !isPaid & isThereNego) {
       return Column(children: [
         Text(
-          'Pembeli Belum Bayar',
+          'Anda Mengajukan Nego Harga',
           style: rectangleTitleStyle,
         ),
         SizedBox(
           height: 5,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 26),
           child: Text(
-            'Pembeli mengajukan nego harga,setujui atau tolak penawaran dari pembeli untuk melanjutkan proses transaksi.',
+            'Menunggu persetujuan dari penjual untuk melakukan nego harga',
             style: rectangleSubtitleStyle,
             textAlign: TextAlign.center,
           ),
         ),
       ]);
-    } else if (isJoin && !isPaid) {
+    } else if (isJoin && !isPaid && !isThereNego) {
       return Column(children: [
         Text(
-          'Pembeli Belum Bayar',
+          'Anda Bergabung dengan Transaksi',
           style: rectangleTitleStyle,
         ),
         SizedBox(
           height: 5,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 33),
+          padding: const EdgeInsets.symmetric(horizontal: 26),
           child: Text(
-            'Pembeli sudah bergabung dengan transaksi.Namun belum melakukan pembayaran',
+            'Sekarang anda dapat membayar pesanan,melakukan nego harga,maupun berdiskusi dengan penjual',
             style: rectangleSubtitleStyle,
             textAlign: TextAlign.center,
           ),
@@ -92,7 +95,7 @@ class AppRectangle extends StatelessWidget {
           height: 10,
         ),
         Text(
-          'BATAS PEMBAYARAN',
+          'BAYAR SEBELUM',
           style: rectangleTitle2Style,
         ),
         Text(
@@ -103,14 +106,14 @@ class AppRectangle extends StatelessWidget {
     } else if (isJoin && isPaid && !isDoneProcessed) {
       return Column(children: [
         Text(
-          'Pembeli Sudah Bayar',
+          'Pembeli Sudah Baffyar',
           style: rectangleTitleStyle,
         ),
         SizedBox(
           height: 5,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 33),
+          padding: const EdgeInsets.symmetric(horizontal: 26),
           child: Text(
             'Kami sudah menerima pembayaran dari pembeli ,saatnya penjual memproses pesanan',
             style: rectangleSubtitleStyle,
@@ -139,7 +142,7 @@ class AppRectangle extends StatelessWidget {
           height: 5,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 33),
+          padding: const EdgeInsets.symmetric(horizontal: 26),
           child: Text(
             'Saatnya kirim pesanan ke pembeli.Pastikan pesanan sudah benar dan alamat kirim sudah sesuai',
             style: rectangleSubtitleStyle,
@@ -172,7 +175,7 @@ class AppRectangle extends StatelessWidget {
           height: 5,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 33),
+          padding: const EdgeInsets.symmetric(horizontal: 26),
           child: Text(
             'Uang akan kami teruskan ke akun anda setelah pembeli konfirmasi pesanan.',
             style: rectangleSubtitleStyle,
@@ -201,7 +204,7 @@ class AppRectangle extends StatelessWidget {
           height: 5,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 33),
+          padding: const EdgeInsets.symmetric(horizontal: 26),
           child: Text(
             'Uang telah kami teruskan ke akun anda',
             style: rectangleSubtitleStyle,
@@ -214,6 +217,7 @@ class AppRectangle extends StatelessWidget {
         Text(
           'TERIMAKASIH TELAH BERTRANSAKSI DENGAN AMAN DI TRANSAFE',
           style: rectangleTitle2Style,
+          textAlign: TextAlign.center,
         ),
       ]);
     }
@@ -224,7 +228,7 @@ class AppRectangle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 27, vertical: 14),
+          padding: EdgeInsets.symmetric(horizontal: 27, vertical: 20),
           width: 325,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),

@@ -16,6 +16,13 @@ TextStyle mainStyle = GoogleFonts.poppins(
 TextStyle buttonStyle = GoogleFonts.poppins(
     fontSize: 15, fontWeight: FontWeight.w500, color: Colors.white);
 
+//Other
+TextStyle textButtonStyle = GoogleFonts.poppins(
+    decoration: TextDecoration.underline,
+    fontWeight: FontWeight.w200,
+    fontSize: 12,
+    color: Color(0xFFEB5B65));
+
 //Item
 TextStyle itemTitleStyle = GoogleFonts.poppins(
     fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black);

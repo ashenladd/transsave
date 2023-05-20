@@ -18,8 +18,7 @@ class AppTransactionStep extends StatelessWidget {
       required this.isSentSuccess,
       required this.isTransactionSuccess});
 
-  Widget getStep(isJoin, isPaid, isDoneProcessed, isSent, isSentSuccess,
-      isTransactionSuccess) {
+  Widget getStep() {
     if (!isJoin) {
       return SvgPicture.asset('assets/transaction/belum_join.svg');
     } else if (isJoin && !isPaid) {
@@ -42,8 +41,6 @@ class AppTransactionStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: getStep(isJoin, isPaid, isDoneProcessed, isSent, isSentSuccess,
-            isTransactionSuccess));
+    return Center(child: getStep());
   }
 }

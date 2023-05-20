@@ -5,8 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:transsave/themes/fonts.dart';
 import 'package:transsave/widgets/auth/AppButton.dart';
 import 'package:transsave/widgets/auth/AppTextField.dart';
-import 'package:transsave/widgets/transaction/AppUploadContainer.dart';
-import 'package:transsave/widgets/transaction/CustomAppBar.dart';
+import 'package:transsave/widgets/transaction_seller/AppUploadContainer.dart';
+import 'package:transsave/widgets/CustomAppBar.dart';
 
 class TransaksiKonfirmasiKirim extends StatefulWidget {
   const TransaksiKonfirmasiKirim({super.key});
@@ -31,7 +31,12 @@ class _TransaksiKonfirmasiKirimState extends State<TransaksiKonfirmasiKirim> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SvgPicture.asset('assets/transaction_konfirmasi_kirim/sent.svg'),
+              Center(
+                  child: SvgPicture.asset(
+                      'assets/transaction_konfirmasi_kirim/sent.svg')),
+              SizedBox(
+                height: 25,
+              ),
               Text(
                 'Jasa/Cara Pengiriman',
                 style: mainStyle,

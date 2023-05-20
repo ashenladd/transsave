@@ -3,8 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:transsave/pages/auth/on_boarding.dart';
 import 'package:transsave/pages/auth/sign_in.dart';
 import 'package:transsave/pages/auth/sign_up.dart';
-import 'package:transsave/pages/transaction/seller/transaksi.dart';
-import 'package:transsave/pages/transaction/seller/transaksi_first_step.dart';
+import 'package:transsave/pages/transaction/buyer/transaksi_buyer.dart';
+import 'package:transsave/pages/transaction/buyer/transaksi_konfirmasi_bayar.dart';
+import 'package:transsave/pages/transaction/buyer/transaksi_konfirmasi_join.dart';
+import 'package:transsave/pages/transaction/seller/buat_transaksi.dart';
+import 'package:transsave/pages/transaction/seller/transaksi_seller.dart';
 import 'package:transsave/pages/transaction/seller/transaksi_konfirmasi_kirim.dart';
 import 'package:transsave/themes/color.dart';
 
@@ -28,8 +31,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             fontFamily: GoogleFonts.poppins().fontFamily,
             primarySwatch: Colors.grey,
-            scaffoldBackgroundColor: backgroundColor2),
-        home: TransaksiKonfirmasiKirim(),
+            scaffoldBackgroundColor: AppColor.backgroundColor2),
+        home: TransaksiBuyer(),
       ),
     );
   }

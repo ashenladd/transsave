@@ -4,10 +4,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:transsave/themes/fonts.dart';
 
-class AppJoinCodeContainer extends StatelessWidget {
-  final String code;
-
-  const AppJoinCodeContainer({super.key, required this.code});
+class AppKeteranganContainerSeller extends StatelessWidget {
+  const AppKeteranganContainerSeller({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,26 +16,18 @@ class AppJoinCodeContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
         color: Color(0xFFD3E3FD),
       ),
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'KODE JOIN',
+            'Catatan Pembeli:',
             style: subtitleStyle2.copyWith(color: Colors.black),
           ),
           Text(
-            code,
-            style: titleStyle.copyWith(color: Colors.black),
+            '-',
+            style: subtitleStyle.copyWith(color: Colors.black),
           ),
-          Text(
-            'Salin Kode',
-            style: GoogleFonts.poppins(
-                decoration: TextDecoration.underline,
-                fontWeight: FontWeight.w200,
-                fontSize: 12,
-                color: Color(0xFFEB5B65)),
-          )
         ],
       ),
     );
