@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:transsave/pages/auth/on_boarding.dart';
 import 'package:transsave/pages/auth/sign_in.dart';
 import 'package:transsave/pages/auth/sign_up.dart';
+import 'package:transsave/pages/main_screen/home.dart';
 import 'package:transsave/pages/transaction/buyer/transaksi_buyer.dart';
 import 'package:transsave/pages/transaction/buyer/transaksi_konfirmasi_bayar.dart';
 import 'package:transsave/pages/transaction/buyer/transaksi_konfirmasi_join.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
             fontFamily: GoogleFonts.poppins().fontFamily,
             primarySwatch: Colors.grey,
             scaffoldBackgroundColor: AppColor.backgroundColor2),
-        home: TransaksiBuyer(),
+        home: Home(),
       ),
     );
   }

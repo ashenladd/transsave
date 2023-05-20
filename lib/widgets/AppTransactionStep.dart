@@ -7,16 +7,15 @@ class AppTransactionStep extends StatelessWidget {
   final bool isDoneProcessed;
   final bool isSent;
   final bool isSentSuccess;
-  final bool isTransactionSuccess;
 
-  const AppTransactionStep(
-      {super.key,
-      required this.isJoin,
-      required this.isPaid,
-      required this.isDoneProcessed,
-      required this.isSent,
-      required this.isSentSuccess,
-      required this.isTransactionSuccess});
+  const AppTransactionStep({
+    super.key,
+    required this.isJoin,
+    required this.isPaid,
+    required this.isDoneProcessed,
+    required this.isSent,
+    required this.isSentSuccess,
+  });
 
   Widget getStep() {
     if (!isJoin) {

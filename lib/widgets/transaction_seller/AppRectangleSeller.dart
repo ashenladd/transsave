@@ -11,17 +11,16 @@ class AppRectangleSeller extends StatelessWidget {
   final bool isDoneProcessed;
   final bool isSent;
   final bool isSentSuccess;
-  final bool isTransactionSuccess;
 
-  const AppRectangleSeller(
-      {super.key,
-      required this.isJoin,
-      required this.isPaid,
-      required this.isThereNego,
-      required this.isDoneProcessed,
-      required this.isSent,
-      required this.isSentSuccess,
-      required this.isTransactionSuccess});
+  const AppRectangleSeller({
+    super.key,
+    required this.isJoin,
+    required this.isPaid,
+    required this.isThereNego,
+    required this.isDoneProcessed,
+    required this.isSent,
+    required this.isSentSuccess,
+  });
 
   Widget getRectangleContent() {
     if (!isJoin) {

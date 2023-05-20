@@ -70,7 +70,9 @@ class _TransaksiKonfirmasiBayarState extends State<TransaksiKonfirmasiBayar> {
               SizedBox(
                 height: 5,
               ),
-              AppDetailBuyer(),
+              AppDetailBuyer(
+                isConfirmPaymentPage: true,
+              ),
               SizedBox(
                 height: 14,
               ),

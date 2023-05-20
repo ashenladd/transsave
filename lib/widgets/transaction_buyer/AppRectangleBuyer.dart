@@ -12,7 +12,6 @@ class AppRectangleBuyer extends StatelessWidget {
   final bool isDoneProcessed;
   final bool isSent;
   final bool isSentSuccess;
-  final bool isTransactionSuccess;
 
   const AppRectangleBuyer({
     super.key,
@@ -23,7 +22,6 @@ class AppRectangleBuyer extends StatelessWidget {
     required this.isDoneProcessed,
     required this.isSent,
     required this.isSentSuccess,
-    required this.isTransactionSuccess,
   });
 
   Widget getRectangleContent() {
@@ -106,7 +104,7 @@ class AppRectangleBuyer extends StatelessWidget {
     } else if (isJoin && isPaid && !isDoneProcessed) {
       return Column(children: [
         Text(
-          'Pembeli Sudah Baffyar',
+          'Pembayaran Berhasil',
           style: rectangleTitleStyle,
         ),
         SizedBox(
@@ -115,7 +113,7 @@ class AppRectangleBuyer extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 26),
           child: Text(
-            'Kami sudah menerima pembayaran dari pembeli ,saatnya penjual memproses pesanan',
+            'Pembayaran anda telah kami terima.Menunggu penjual memproses pesanan',
             style: rectangleSubtitleStyle,
             textAlign: TextAlign.center,
           ),
@@ -124,7 +122,7 @@ class AppRectangleBuyer extends StatelessWidget {
           height: 10,
         ),
         Text(
-          'PROSES SEBELUM',
+          'AKAN DIPROSES SEBELUM',
           style: rectangleTitle2Style,
         ),
         Text(
@@ -135,7 +133,7 @@ class AppRectangleBuyer extends StatelessWidget {
     } else if (isJoin && isPaid && isDoneProcessed && !isSent) {
       return Column(children: [
         Text(
-          'Berhasil Proses Transaksi',
+          'Pesanan Diproses Penual',
           style: rectangleTitleStyle,
         ),
         SizedBox(
@@ -144,7 +142,7 @@ class AppRectangleBuyer extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 26),
           child: Text(
-            'Saatnya kirim pesanan ke pembeli.Pastikan pesanan sudah benar dan alamat kirim sudah sesuai',
+            'Pesananan sedang diproses oleh penjual dan pesanan akan segera dikirimkan ke anda',
             style: rectangleSubtitleStyle,
             textAlign: TextAlign.center,
           ),
@@ -153,7 +151,7 @@ class AppRectangleBuyer extends StatelessWidget {
           height: 10,
         ),
         Text(
-          'KIRIM SEBELUM',
+          'AKAN DIKIRIM SEBELUM',
           style: rectangleTitle2Style,
         ),
         Text(
@@ -168,7 +166,7 @@ class AppRectangleBuyer extends StatelessWidget {
         !isSentSuccess) {
       return Column(children: [
         Text(
-          'Pesanan Berhasil Dikirim',
+          'Pesanan Telah Dikirim Oleh Penjual',
           style: rectangleTitleStyle,
         ),
         SizedBox(
@@ -177,7 +175,7 @@ class AppRectangleBuyer extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 26),
           child: Text(
-            'Uang akan kami teruskan ke akun anda setelah pembeli konfirmasi pesanan.',
+            'Segera konfirmasi pesanan jika anda telah menerima pesanan,pastikan pesanan yang anda terima dalam kondisi baik.',
             style: rectangleSubtitleStyle,
             textAlign: TextAlign.center,
           ),
@@ -186,7 +184,7 @@ class AppRectangleBuyer extends StatelessWidget {
           height: 10,
         ),
         Text(
-          'BATAS KONFIRMASI TERIMA PESANAN',
+          'KONFIRMASI SEBELUM',
           style: rectangleTitle2Style,
         ),
         Text(
@@ -197,7 +195,7 @@ class AppRectangleBuyer extends StatelessWidget {
     } else if (isJoin && isPaid && isDoneProcessed && isSent && isSentSuccess) {
       return Column(children: [
         Text(
-          'Pembeli Sudah Terima Pesanan',
+          'Anda Sudah Terima Pesanan',
           style: rectangleTitleStyle,
         ),
         SizedBox(
@@ -206,7 +204,7 @@ class AppRectangleBuyer extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 26),
           child: Text(
-            'Uang telah kami teruskan ke akun anda',
+            'Uang telah kami teruskan ke akun penjual',
             style: rectangleSubtitleStyle,
             textAlign: TextAlign.center,
           ),

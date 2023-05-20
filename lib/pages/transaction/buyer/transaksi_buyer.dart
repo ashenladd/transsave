@@ -6,10 +6,12 @@ import 'package:transsave/widgets/AppTileItem.dart';
 import 'package:transsave/widgets/AppTransactionStep.dart';
 import 'package:transsave/widgets/CustomAppBar.dart';
 import 'package:transsave/widgets/auth/AppButton.dart';
+import 'package:transsave/widgets/transaction_buyer/AppBottomsideBuyer.dart';
 import 'package:transsave/widgets/transaction_buyer/AppDarkContainerBuyer.dart';
 import 'package:transsave/widgets/transaction_buyer/AppKeteranganContainerBuyer.dart';
 import 'package:transsave/widgets/transaction_buyer/AppNegoButton.dart';
 import 'package:transsave/widgets/transaction_buyer/AppRectangleBuyer.dart';
+import 'package:transsave/widgets/transaction_buyer/AppUppersideBuyer.dart';
 
 import '../../../themes/fonts.dart';
 
@@ -25,10 +27,9 @@ class _TransaksiBuyerState extends State<TransaksiBuyer> {
   bool isPaid = true;
   bool isThereNego = false;
   bool isNegoAccepted = true;
-  bool isDoneProcessed = false;
-  bool isSent = false;
-  bool isSentSuccess = false;
-  bool isTransactionSuccess = false;
+  bool isDoneProcessed = true;
+  bool isSent = true;
+  bool isSentSuccess = true;
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +44,12 @@ class _TransaksiBuyerState extends State<TransaksiBuyer> {
               child: Column(
         children: [
           AppTransactionStep(
-              isJoin: isJoin,
-              isPaid: isPaid,
-              isDoneProcessed: isDoneProcessed,
-              isSent: isSent,
-              isSentSuccess: isSentSuccess,
-              isTransactionSuccess: isTransactionSuccess),
+            isJoin: isJoin,
+            isPaid: isPaid,
+            isDoneProcessed: isDoneProcessed,
+            isSent: isSent,
+            isSentSuccess: isSentSuccess,
+          ),
           SizedBox(
             height: 20,
           ),
@@ -60,7 +61,6 @@ class _TransaksiBuyerState extends State<TransaksiBuyer> {
             isDoneProcessed: isDoneProcessed,
             isSent: isSent,
             isSentSuccess: isSentSuccess,
-            isTransactionSuccess: isTransactionSuccess,
           ),
           SizedBox(
             height: 15,
@@ -79,21 +79,26 @@ class _TransaksiBuyerState extends State<TransaksiBuyer> {
                   SizedBox(
                     height: 20,
                   ),
-                  AppDarkContainerBuyer(
-                      isJoin: isJoin,
-                      isPaid: isPaid,
-                      isThereNego: isThereNego,
-                      isDoneProcessed: isDoneProcessed,
-                      isSent: isSent,
-                      isSentSuccess: isSentSuccess),
+                  AppUppersideBuyer(
+                    isJoin: isJoin,
+                    isPaid: isPaid,
+                    isThereNego: isThereNego,
+                    isNegoAccepted: isNegoAccepted,
+                    isDoneProcessed: isDoneProcessed,
+                    isSent: isSent,
+                    isSentSuccess: isSentSuccess,
+                  ),
                   SizedBox(
                     height: 12,
                   ),
-                  Text('Keterangan'),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  AppKeteranganContainerBuyer(),
+                  AppBottomsideBuyer(
+                      isJoin: isJoin,
+                      isPaid: isPaid,
+                      isThereNego: isThereNego,
+                      isNegoAccepted: isNegoAccepted,
+                      isDoneProcessed: isDoneProcessed,
+                      isSent: isSent,
+                      isSentSuccess: isSentSuccess),
                   SizedBox(
                     height: 20,
                   ),
