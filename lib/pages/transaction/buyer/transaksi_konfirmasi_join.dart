@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:transsave/pages/transaction/buyer/transaksi_buyer.dart';
 import 'package:transsave/widgets/CustomAppBar.dart';
 import 'package:transsave/widgets/auth/AppButton.dart';
 import 'package:transsave/widgets/transaction_buyer/AppDarkContainerBuyer.dart';
@@ -10,6 +12,7 @@ import '../../../themes/color.dart';
 import '../../../themes/fonts.dart';
 
 class TransaksiKonfirmasiJoin extends StatelessWidget {
+  static String routeName = '/transaksi_konfirmasi_join';
   const TransaksiKonfirmasiJoin({
     super.key,
   });
@@ -130,6 +133,7 @@ class TransaksiKonfirmasiJoin extends StatelessWidget {
           AppButton(
             text: 'JOIN TRANSAKSI',
             width: 215,
+            onTap: () => Get.toNamed(TransaksiBuyer.routeName),
           )
         ],
       )),

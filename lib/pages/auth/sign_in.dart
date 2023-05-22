@@ -8,6 +8,7 @@ import '../../widgets/auth/AppButton.dart';
 import '../../widgets/auth/AppTextField.dart';
 
 class SignIn extends StatefulWidget {
+  static String routeName = '/sign_in';
   const SignIn({super.key});
 
   @override

@@ -5,7 +5,7 @@ import 'package:transsave/themes/fonts.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final String title;
-  final Icon leading;
+  final Icon? leading;
 
   const CustomAppBar({
     super.key,
@@ -20,7 +20,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       elevation: 0,
       centerTitle: true,
       leading: IconButton(
-        icon: leading,
+        icon: leading != null ? Icon(Icons.arrow_back) : Icon(null),
         onPressed: () {
           Navigator.pop(context);
         },

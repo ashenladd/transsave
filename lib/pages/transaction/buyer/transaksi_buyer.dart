@@ -16,6 +16,7 @@ import 'package:transsave/widgets/transaction_buyer/AppUppersideBuyer.dart';
 import '../../../themes/fonts.dart';
 
 class TransaksiBuyer extends StatefulWidget {
+  static String routeName = '/transaksi_buyer';
   const TransaksiBuyer({super.key});
 
   @override

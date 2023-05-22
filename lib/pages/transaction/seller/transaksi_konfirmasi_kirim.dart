@@ -9,6 +9,7 @@ import 'package:transsave/widgets/transaction_seller/AppUploadContainer.dart';
 import 'package:transsave/widgets/CustomAppBar.dart';
 
 class TransaksiKonfirmasiKirim extends StatefulWidget {
+  static String routeName = '/transaksi_konfirmasi_kirim';
   const TransaksiKonfirmasiKirim({super.key});
 
   @override

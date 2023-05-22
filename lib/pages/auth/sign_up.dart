@@ -10,6 +10,7 @@ import '../../widgets/auth/AppButton.dart';
 import '../../widgets/auth/AppTextField.dart';
 
 class SignUp extends StatefulWidget {
+  static String routeName = '/sign_up';
   const SignUp({super.key});
 
   @override

@@ -2,13 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:transsave/pages/transaction/seller/buat_transaksi.dart';
 import 'package:transsave/themes/fonts.dart';
 import 'package:transsave/widgets/auth/AppButton.dart';
+import 'package:transsave/widgets/home/AppJoinPopup.dart';
 import 'package:transsave/widgets/home/AppTransactionItem.dart';
+
+import '../../widgets/home/CustomBottomAppBart.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
+
+  Future<void> _displayJoinCode(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AppJoinPopup();
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,12 +109,17 @@ class Home extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           AppButton(
-                            width: 150,
-                            text: 'Buat Transaksi',
-                          ),
+                              width: 150,
+                              text: 'Buat Transaksi',
+                              onTap: () {
+                                Get.toNamed(BuatTransaksi.routeName);
+                              }),
                           AppButton(
                             width: 150,
                             text: 'Gabung Transaksi',
+                            onTap: () {
+                              _displayJoinCode(context);
+                            },
                           )
                         ],
                       ),

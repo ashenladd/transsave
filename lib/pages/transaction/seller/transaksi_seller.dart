@@ -14,6 +14,7 @@ import '../../../widgets/transaction_seller/AppChoiceButton.dart';
 import '../../../widgets/transaction_seller/AppRectangleSeller.dart';
 
 class TransaksiSeller extends StatefulWidget {
+  static String routeName = '/transaksi_seller';
   const TransaksiSeller({super.key});
 
   @override

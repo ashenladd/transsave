@@ -15,19 +15,20 @@ class AppTextField extends StatelessWidget {
   final double height;
   final double width;
 
-  const AppTextField(
-      {super.key,
-      this.controller,
-      this.labelText,
-      this.obscureText = false,
-      this.suffixIcon,
-      this.hintText,
-      this.useMargin = true,
-      this.isExpanded = false,
-      this.hintStyle,
-      this.height = 45,
-      this.width = 275,
-      this.maxLines = 1});
+  const AppTextField({
+    super.key,
+    this.controller,
+    this.labelText,
+    this.obscureText = false,
+    this.suffixIcon,
+    this.hintText,
+    this.useMargin = true,
+    this.isExpanded = false,
+    this.hintStyle,
+    this.height = 45,
+    this.width = 275,
+    this.maxLines = 1,
+  });
 
   @override
   Widget build(BuildContext context) {

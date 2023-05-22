@@ -49,7 +49,10 @@ class AppTransactionItem extends StatelessWidget {
                   color: AppColor.mainRed,
                 ),
               ),
-              Text('Jual')
+              Text(
+                'Jual',
+                style: subtitleStyle.copyWith(color: Colors.black),
+              )
             ],
           ),
           SizedBox(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
+import 'package:transsave/pages/transaction/seller/transaksi_seller.dart';
 import 'package:transsave/widgets/auth/AppButton.dart';
 import 'package:transsave/widgets/auth/AppTextField.dart';
 import 'package:transsave/widgets/transaction_seller/AppRectangleSeller.dart';
@@ -11,6 +13,7 @@ import '../../../themes/color.dart';
 import '../../../themes/fonts.dart';
 
 class BuatTransaksi extends StatefulWidget {
+  static String routeName = '/buat_transaksi';
   const BuatTransaksi({super.key});
 
   @override
@@ -218,6 +221,7 @@ class _BuatTransaksiState extends State<BuatTransaksi> {
                   Center(
                     child: AppButton(
                       text: "BUAT Transaksi",
+                      onTap: () => Get.toNamed(TransaksiSeller.routeName),
                     ),
                   )
                 ],

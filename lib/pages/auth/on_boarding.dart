@@ -8,6 +8,8 @@ import '../../widgets/auth/AppButton.dart';
 class OnBoarding extends StatelessWidget {
   OnBoarding({super.key});
 
+  static String routeName = "/on_boarding";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

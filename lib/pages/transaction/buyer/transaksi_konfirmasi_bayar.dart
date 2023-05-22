@@ -14,6 +14,7 @@ import '../../../themes/color.dart';
 import '../../../themes/fonts.dart';
 
 class TransaksiKonfirmasiBayar extends StatefulWidget {
+  static String routeName = '/transaksi_konfirmasi_bayar';
   const TransaksiKonfirmasiBayar({super.key});
 
   @override
