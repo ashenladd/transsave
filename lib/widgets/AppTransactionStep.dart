@@ -1,38 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../model/TransactionModel.dart';
+
 class AppTransactionStep extends StatelessWidget {
-  final bool isJoin;
-  final bool isPaid;
-  final bool isDoneProcessed;
-  final bool isSent;
-  final bool isSentSuccess;
+  // final bool isJoin;
+  // final bool isPaid;
+  // final bool isDoneProcessed;
+  // final bool isSent;
+  // final bool isSentSuccess;
+  final Status status;
 
   const AppTransactionStep({
     super.key,
-    required this.isJoin,
-    required this.isPaid,
-    required this.isDoneProcessed,
-    required this.isSent,
-    required this.isSentSuccess,
+    required this.status,
   });
 
   Widget getStep() {
-    if (!isJoin) {
-      return SvgPicture.asset('assets/transaction/belum_join.svg');
-    } else if (isJoin && !isPaid) {
+    if (status == Status.join) {
       return SvgPicture.asset('assets/transaction/join.svg');
-    } else if (isJoin && isPaid && !isDoneProcessed) {
+    } else if (status == Status.paid) {
       return SvgPicture.asset('assets/transaction/dibayar.svg');
-    } else if (isJoin && isPaid && isDoneProcessed && !isSent) {
+    } else if (status == Status.doneProcessed) {
       return SvgPicture.asset('assets/transaction/diproses.svg');
-    } else if (isJoin &&
-        isPaid &&
-        isDoneProcessed &&
-        isSent &&
-        !isSentSuccess) {
+    } else if (status == Status.sent) {
       return SvgPicture.asset('assets/transaction/dikirim.svg');
-    } else if (isJoin && isPaid && isDoneProcessed && isSent && isSentSuccess) {
+    } else if (status == Status.sentSuccess) {
       return SvgPicture.asset('assets/transaction/selesai.svg');
     }
     return SvgPicture.asset('assets/transaction/belum_join.svg');

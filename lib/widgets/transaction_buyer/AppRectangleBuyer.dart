@@ -2,30 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
+import '../../model/TransactionModel.dart';
 import '../../themes/fonts.dart';
 
 class AppRectangleBuyer extends StatelessWidget {
-  final bool isJoin;
-  final bool isPaid;
-  final bool isThereNego;
-  final bool isNegoAccepted;
-  final bool isDoneProcessed;
-  final bool isSent;
-  final bool isSentSuccess;
+  // final bool isJoin;
+  // final bool isPaid;
+  // final bool isThereNego;
+  // final bool isNegoAccepted;
+  // final bool isDoneProcessed;
+  // final bool isSent;
+  // final bool isSentSuccess;
+
+  final Status status;
+  final Nego nego;
 
   const AppRectangleBuyer({
     super.key,
-    required this.isJoin,
-    required this.isPaid,
-    required this.isThereNego,
-    required this.isNegoAccepted,
-    required this.isDoneProcessed,
-    required this.isSent,
-    required this.isSentSuccess,
+    required this.status,
+    required this.nego,
   });
 
   Widget getRectangleContent() {
-    if (isJoin && !isPaid && !isThereNego && isNegoAccepted) {
+    if (status == Status.join && nego == Nego.negoAccepted) {
       return Column(children: [
         Text(
           'Penjual Menyetujui Nego Harga',
@@ -54,7 +53,7 @@ class AppRectangleBuyer extends StatelessWidget {
           style: rectangleTimeStyle,
         )
       ]);
-    } else if (isJoin && !isPaid & isThereNego) {
+    } else if (status == Status.join && nego == Nego.nego) {
       return Column(children: [
         Text(
           'Anda Mengajukan Nego Harga',
@@ -72,7 +71,7 @@ class AppRectangleBuyer extends StatelessWidget {
           ),
         ),
       ]);
-    } else if (isJoin && !isPaid && !isThereNego) {
+    } else if (status == Status.join && nego == Nego.notNego) {
       return Column(children: [
         Text(
           'Anda Bergabung dengan Transaksi',
@@ -101,7 +100,7 @@ class AppRectangleBuyer extends StatelessWidget {
           style: rectangleTimeStyle,
         )
       ]);
-    } else if (isJoin && isPaid && !isDoneProcessed) {
+    } else if (status == Status.paid) {
       return Column(children: [
         Text(
           'Pembayaran Berhasil',
@@ -130,7 +129,7 @@ class AppRectangleBuyer extends StatelessWidget {
           style: rectangleTimeStyle,
         )
       ]);
-    } else if (isJoin && isPaid && isDoneProcessed && !isSent) {
+    } else if (status == Status.doneProcessed) {
       return Column(children: [
         Text(
           'Pesanan Diproses Penual',
@@ -159,11 +158,7 @@ class AppRectangleBuyer extends StatelessWidget {
           style: rectangleTimeStyle,
         )
       ]);
-    } else if (isJoin &&
-        isPaid &&
-        isDoneProcessed &&
-        isSent &&
-        !isSentSuccess) {
+    } else if (status == Status.sent) {
       return Column(children: [
         Text(
           'Pesanan Telah Dikirim Oleh Penjual',
@@ -192,7 +187,7 @@ class AppRectangleBuyer extends StatelessWidget {
           style: rectangleTimeStyle,
         )
       ]);
-    } else if (isJoin && isPaid && isDoneProcessed && isSent && isSentSuccess) {
+    } else if (status == Status.sentSuccess) {
       return Column(children: [
         Text(
           'Anda Sudah Terima Pesanan',

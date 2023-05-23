@@ -8,6 +8,7 @@ import 'package:transsave/widgets/AppTileItem.dart';
 import 'package:transsave/widgets/AppTransactionStep.dart';
 import 'package:transsave/widgets/CustomAppBar.dart';
 
+import '../../../model/TransactionModel.dart';
 import '../../../themes/fonts.dart';
 import '../../../widgets/AppChatContainer.dart';
 import '../../../widgets/transaction_seller/AppChoiceButton.dart';
@@ -24,46 +25,31 @@ class TransaksiSeller extends StatefulWidget {
 class _TransaksiSellerState extends State<TransaksiSeller> {
   @override
   Widget build(BuildContext context) {
-    bool isJoin = true;
-    bool isPaid = false;
-    bool isThereNego = false;
-    bool isDoneProcessed = true;
-    bool isSent = false;
-    bool isSentSuccess = false;
-    bool isTransactionSuccess = false;
+    Status status = Status.notJoin;
+    Nego nego = Nego.notNego;
+
+    // bool isJoin = true;
+    // bool isPaid = true;
+    // bool isThereNego = false;
+    // bool isDoneProcessed = true;
+    // bool isSent = true;
+    // bool isSentSuccess = true;
 
     Widget getContainer() {
-      if (isJoin && !isPaid & isThereNego) {
+      if (status == Status.join && nego == Nego.nego) {
         return AppDarkContainerSeller(
-          isJoin: isJoin,
-          isPaid: isPaid,
-          isDoneProcessed: isDoneProcessed,
-          isThereNego: isThereNego,
-          isSent: isSent,
-          isSentSuccess: isSentSuccess,
+          status: status,
+          nego: nego,
         );
-      } else if (isJoin &&
-          isPaid &&
-          isDoneProcessed &&
-          isSent &&
-          isSentSuccess) {
+      } else if (status == Status.sentSuccess) {
         return AppDarkContainerSeller(
-          isJoin: isJoin,
-          isPaid: isPaid,
-          isDoneProcessed: isDoneProcessed,
-          isThereNego: isThereNego,
-          isSent: isSent,
-          isSentSuccess: isSentSuccess,
+          status: status,
+          nego: nego,
         );
       } else {
         return AppDetailSeller(
-            isJoin: isJoin,
-            isPaid: isPaid,
-            isThereNego: isThereNego,
-            isDoneProcessed: isDoneProcessed,
-            isSent: isSent,
-            isSentSuccess: isSentSuccess,
-            isTransactionSuccess: isTransactionSuccess);
+          status: status,
+        );
       }
     }
 
@@ -76,23 +62,13 @@ class _TransaksiSellerState extends State<TransaksiSeller> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppTransactionStep(
-              isJoin: isJoin,
-              isPaid: isPaid,
-              isDoneProcessed: isDoneProcessed,
-              isSent: isSent,
-              isSentSuccess: isSentSuccess,
-            ),
+            AppTransactionStep(status: status),
             SizedBox(
               height: 20,
             ),
             AppRectangleSeller(
-              isJoin: isJoin,
-              isPaid: isPaid,
-              isThereNego: isThereNego,
-              isDoneProcessed: isDoneProcessed,
-              isSent: isSent,
-              isSentSuccess: isSentSuccess,
+              status: status,
+              nego: nego,
             ),
             SizedBox(
               height: 15,
@@ -113,7 +89,7 @@ class _TransaksiSellerState extends State<TransaksiSeller> {
                   SizedBox(
                     height: 34,
                   ),
-                  !(isJoin && isPaid && isDoneProcessed)
+                  !(status == Status.doneProcessed)
                       ? Center(
                           child: AppJoinCodeContainer(
                             code: 'A52PX2',
@@ -123,17 +99,10 @@ class _TransaksiSellerState extends State<TransaksiSeller> {
                   SizedBox(
                     height: 10,
                   ),
-                  isJoin && isPaid && isDoneProcessed && isSent && isSentSuccess
+                  status == Status.sentSuccess
                       ? Column(
                           children: [
-                            AppDetailSeller(
-                                isJoin: isJoin,
-                                isPaid: isPaid,
-                                isThereNego: isThereNego,
-                                isDoneProcessed: isDoneProcessed,
-                                isSent: isSent,
-                                isSentSuccess: isSentSuccess,
-                                isTransactionSuccess: isTransactionSuccess),
+                            AppDetailSeller(status: status),
                             SizedBox(
                               height: 10,
                             ),
@@ -144,7 +113,7 @@ class _TransaksiSellerState extends State<TransaksiSeller> {
                   SizedBox(
                     height: 27,
                   ),
-                  isJoin && !isPaid & isThereNego
+                  status == Status.join && nego == Nego.nego
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

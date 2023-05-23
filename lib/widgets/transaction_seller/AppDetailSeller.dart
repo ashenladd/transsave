@@ -2,26 +2,22 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../model/TransactionModel.dart';
 import '../../themes/fonts.dart';
 
 class AppDetailSeller extends StatelessWidget {
-  final bool isJoin;
-  final bool isPaid;
-  final bool isThereNego;
-  final bool isDoneProcessed;
-  final bool isSent;
-  final bool isSentSuccess;
-  final bool isTransactionSuccess;
+  // final bool isJoin;
+  // final bool isPaid;
+  // final bool isThereNego;
+  // final bool isDoneProcessed;
+  // final bool isSent;
+  // final bool isSentSuccess;
+  final Status status;
 
-  const AppDetailSeller(
-      {super.key,
-      required this.isJoin,
-      required this.isPaid,
-      required this.isThereNego,
-      required this.isDoneProcessed,
-      required this.isSent,
-      required this.isSentSuccess,
-      required this.isTransactionSuccess});
+  const AppDetailSeller({
+    super.key,
+    required this.status,
+  });
 
   Widget getDetailBarang() {
     return Container(
@@ -181,21 +177,17 @@ class AppDetailSeller extends StatelessWidget {
   }
 
   Widget getContent() {
-    if (!isJoin) {
+    if (status == Status.notJoin) {
       return getDetailBarang();
-    } else if (isJoin && !isPaid) {
+    } else if (status == Status.join) {
       return getDetailBarang();
-    } else if (isJoin && isPaid && !isDoneProcessed) {
+    } else if (status == Status.paid) {
       return getDetailBarang();
-    } else if (isJoin && isPaid && isDoneProcessed && !isSent) {
+    } else if (status == Status.doneProcessed) {
       return getDetailPengiriman();
-    } else if (isJoin &&
-        isPaid &&
-        isDoneProcessed &&
-        isSent &&
-        !isSentSuccess) {
+    } else if (status == Status.sent) {
       return getDetailPengiriman();
-    } else if (isJoin && isPaid && isDoneProcessed && isSent && isSentSuccess) {
+    } else if (status == Status.sentSuccess) {
       return getDetailPengiriman();
     }
     return getDetailBarang();

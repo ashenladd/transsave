@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
             fontFamily: GoogleFonts.poppins().fontFamily,
             primarySwatch: Colors.grey,
             scaffoldBackgroundColor: AppColor.backgroundColor2),
-        home: MainPage(),
+        initialRoute: TransaksiBuyer.routeName,
         getPages: [
           GetPage(name: MainPage.routeName, page: () => const MainPage()),
           GetPage(name: SignIn.routeName, page: () => const SignIn()),

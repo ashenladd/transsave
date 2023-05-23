@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:transsave/model/TransactionModel.dart';
 
 import '../../themes/color.dart';
 import '../../themes/fonts.dart';
 
 class AppDarkContainerSeller extends StatelessWidget {
-  final bool isJoin;
-  final bool isPaid;
-  final bool isThereNego;
-  final bool isDoneProcessed;
-  final bool isSent;
-  final bool isSentSuccess;
+  // final bool isJoin;
+  // final bool isPaid;
+  // final bool isThereNego;
+  // final bool isDoneProcessed;
+  // final bool isSent;
+  // final bool isSentSuccess;
+
+  final Status status;
+  final Nego nego;
 
   const AppDarkContainerSeller(
-      {super.key,
-      required this.isJoin,
-      required this.isPaid,
-      required this.isThereNego,
-      required this.isDoneProcessed,
-      required this.isSent,
-      required this.isSentSuccess});
+      {super.key, required this.status, required this.nego});
 
   Widget getContainerContent() {
-    if (isJoin && !isPaid & isThereNego) {
+    if (status == Status.join && nego == Nego.nego) {
       return Column(
         children: [
           Row(
@@ -55,11 +53,7 @@ class AppDarkContainerSeller extends StatelessWidget {
           )
         ],
       );
-    } else if (isJoin &&
-        isPaid &&
-        isDoneProcessed &&
-        isSent &&
-        !isSentSuccess) {
+    } else if (status == Status.sent) {
       return Column(
         children: [
           Row(
@@ -110,7 +104,7 @@ class AppDarkContainerSeller extends StatelessWidget {
           ),
         ],
       );
-    } else if (isJoin && isPaid && isDoneProcessed && isSent && isSentSuccess) {
+    } else {
       return Column(
         children: [
           Row(
@@ -162,7 +156,6 @@ class AppDarkContainerSeller extends StatelessWidget {
         ],
       );
     }
-    return Text('');
   }
 
   @override

@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:transsave/pages/auth/sign_in.dart';
 
 import '../../themes/color.dart';
 import '../../themes/fonts.dart';
@@ -122,8 +123,8 @@ class _SignUpState extends State<SignUp> {
                           text: ' Login',
                           style: mainStyle.copyWith(color: AppColor.mainRed),
                           recognizer: TapGestureRecognizer()
-                            ..onTap =
-                                () => Navigator.pushNamed(context, '/sign-up'))
+                            ..onTap = () =>
+                                Navigator.pushNamed(context, SignIn.routeName))
                     ])),
                 SizedBox(
                   height: 80,

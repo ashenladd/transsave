@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:transsave/pages/transaction/seller/transaksi_seller.dart';
 import 'package:transsave/themes/color.dart';
 import 'package:transsave/widgets/AppChatContainer.dart';
 import 'package:transsave/widgets/AppJoinCodeContainer.dart';
@@ -13,6 +14,7 @@ import 'package:transsave/widgets/transaction_buyer/AppNegoButton.dart';
 import 'package:transsave/widgets/transaction_buyer/AppRectangleBuyer.dart';
 import 'package:transsave/widgets/transaction_buyer/AppUppersideBuyer.dart';
 
+import '../../../model/TransactionModel.dart';
 import '../../../themes/fonts.dart';
 
 class TransaksiBuyer extends StatefulWidget {
@@ -24,17 +26,19 @@ class TransaksiBuyer extends StatefulWidget {
 }
 
 class _TransaksiBuyerState extends State<TransaksiBuyer> {
-  bool isJoin = true;
-  bool isPaid = true;
-  bool isThereNego = false;
-  bool isNegoAccepted = true;
-  bool isDoneProcessed = true;
-  bool isSent = true;
-  bool isSentSuccess = true;
+  Status status = Status.join;
+  Nego nego = Nego.negoAccepted;
+  // bool isJoin = true;
+  // bool isPaid = false;
+  // bool isThereNego = false;
+  // bool isNegoAccepted = false;
+  // bool isDoneProcessed = false;
+  // bool isSent = false;
+  // bool isSentSuccess = false;
 
   @override
   Widget build(BuildContext context) {
-    bool isButtonActive = isJoin && !isPaid && !isThereNego;
+    bool isButtonActive = status == Status.join && nego == Nego.notNego;
     return Scaffold(
       backgroundColor: AppColor.backgroundColor2,
       appBar: CustomAppBar(
@@ -45,23 +49,14 @@ class _TransaksiBuyerState extends State<TransaksiBuyer> {
               child: Column(
         children: [
           AppTransactionStep(
-            isJoin: isJoin,
-            isPaid: isPaid,
-            isDoneProcessed: isDoneProcessed,
-            isSent: isSent,
-            isSentSuccess: isSentSuccess,
+            status: status,
           ),
           SizedBox(
             height: 20,
           ),
           AppRectangleBuyer(
-            isJoin: isJoin,
-            isPaid: isPaid,
-            isThereNego: isThereNego,
-            isNegoAccepted: isNegoAccepted,
-            isDoneProcessed: isDoneProcessed,
-            isSent: isSent,
-            isSentSuccess: isSentSuccess,
+            status: status,
+            nego: nego,
           ),
           SizedBox(
             height: 15,
@@ -81,25 +76,16 @@ class _TransaksiBuyerState extends State<TransaksiBuyer> {
                     height: 20,
                   ),
                   AppUppersideBuyer(
-                    isJoin: isJoin,
-                    isPaid: isPaid,
-                    isThereNego: isThereNego,
-                    isNegoAccepted: isNegoAccepted,
-                    isDoneProcessed: isDoneProcessed,
-                    isSent: isSent,
-                    isSentSuccess: isSentSuccess,
+                    status: status,
+                    nego: nego,
                   ),
                   SizedBox(
                     height: 12,
                   ),
                   AppBottomsideBuyer(
-                      isJoin: isJoin,
-                      isPaid: isPaid,
-                      isThereNego: isThereNego,
-                      isNegoAccepted: isNegoAccepted,
-                      isDoneProcessed: isDoneProcessed,
-                      isSent: isSent,
-                      isSentSuccess: isSentSuccess),
+                    status: status,
+                    nego: nego,
+                  ),
                   SizedBox(
                     height: 20,
                   ),

@@ -1,47 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:transsave/model/TransactionModel.dart';
 import 'package:transsave/widgets/transaction_buyer/AppDarkContainerBuyer.dart';
 import 'package:transsave/widgets/transaction_buyer/AppDarkContainerSecond.dart';
 import 'package:transsave/widgets/transaction_buyer/AppDetailBayar.dart';
 import 'package:transsave/widgets/transaction_buyer/AppKeteranganContainerBuyer.dart';
 
 class AppBottomsideBuyer extends StatelessWidget {
-  final bool isJoin;
-  final bool isPaid;
-  final bool isThereNego;
-  final bool isNegoAccepted;
-  final bool isDoneProcessed;
-  final bool isSent;
-  final bool isSentSuccess;
+  // final bool isJoin;
+  // final bool isPaid;
+  // final bool isThereNego;
+  // final bool isNegoAccepted;
+  // final bool isDoneProcessed;
+  // final bool isSent;
+  // final bool isSentSuccess;
+  final Status status;
+  final Nego nego;
 
-  const AppBottomsideBuyer({
-    super.key,
-    required this.isJoin,
-    required this.isPaid,
-    required this.isThereNego,
-    required this.isNegoAccepted,
-    required this.isDoneProcessed,
-    required this.isSent,
-    required this.isSentSuccess,
-  });
+  const AppBottomsideBuyer(
+      {super.key, required this.status, required this.nego});
 
   Widget getContent() {
-    if (isJoin && !isPaid && !isThereNego && isNegoAccepted) {
+    if (status == Status.join && nego == Nego.negoAccepted) {
       return AppKeteranganContainerBuyer();
-    } else if (isJoin && !isPaid && !isThereNego) {
+    } else if (status == Status.join && nego == Nego.notNego) {
       return AppKeteranganContainerBuyer();
-    } else if (isJoin && isPaid && !isDoneProcessed) {
+    } else if (status == Status.paid) {
       return AppDetailBayar();
-    } else if (isJoin && isPaid && isDoneProcessed && !isSent) {
+    } else if (status == Status.doneProcessed) {
       return AppDetailBayar();
-    } else if (isJoin &&
-        isPaid &&
-        isDoneProcessed &&
-        isSent &&
-        !isSentSuccess) {
+    } else if (status == Status.sent) {
       return AppDarkContainerSecond();
-    } else if (isJoin && isPaid && isDoneProcessed && isSent && isSentSuccess) {
+    } else if (status == Status.sentSuccess) {
       return AppKeteranganContainerBuyer();
     }
     return AppKeteranganContainerBuyer();
