@@ -4,6 +4,9 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:transsave/controller/TransactionController.dart';
+import 'package:transsave/model/ProductModel.dart';
+import 'package:transsave/model/TransactionModel.dart';
 import 'package:transsave/pages/transaction/seller/buat_transaksi.dart';
 import 'package:transsave/themes/fonts.dart';
 import 'package:transsave/widgets/auth/AppButton.dart';
@@ -13,7 +16,10 @@ import 'package:transsave/widgets/home/AppTransactionItem.dart';
 import '../../widgets/home/CustomBottomAppBart.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  TransactionController transactionController =
+      Get.put(TransactionController());
+
+  Home({super.key});
 
   Future<void> _displayJoinCode(BuildContext context) async {
     return showDialog(
@@ -151,19 +157,28 @@ class Home extends StatelessWidget {
                       ),
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: Row(
-                            children: List.generate(
-                          4,
-                          (index) => Row(
-                            children: [
-                              AppTransactionItem(),
-                              SizedBox(
-                                width: 20,
-                              )
-                            ],
-                          ),
-                        )),
+                        child: GetBuilder<TransactionController>(
+                            builder: (context) {
+                          return Row(
+                              children: List.generate(
+                            context.allTransactions.length,
+                            (index) => Row(
+                              children: [
+                                AppTransactionItem(
+                                  transaction: context.allTransactions[index],
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                )
+                              ],
+                            ),
+                          ));
+                        }),
                       ),
+                      AppButton(
+                        onTap: () => transactionController
+                            .addTransaction(dummyTransaction[0]),
+                      )
                     ]),
               )
             ],

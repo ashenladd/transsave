@@ -48,10 +48,11 @@ enum Nego { notNego, nego, negoAccepted, negoRejected }
 class Transaction {
   int id;
   int productId;
-  String roomId;
+  int roomId;
   int tax;
   bool negotiable;
   Status status;
+  String statusString;
   DateTime createdAt;
   DateTime updatedAt;
   Product product;
@@ -64,6 +65,7 @@ class Transaction {
     required this.tax,
     required this.negotiable,
     required this.status,
+    required this.statusString,
     required this.createdAt,
     required this.updatedAt,
     required this.product,
@@ -77,6 +79,7 @@ class Transaction {
         tax: json["tax"].toInt(),
         negotiable: json["negotiable"],
         status: json["status"],
+        statusString: json["status"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         product: Product.fromJson(json["product"]),
@@ -97,15 +100,16 @@ class Transaction {
       };
 }
 
-//Create 7 dummyTransaction
+//Create 7 dummyTransaction with different status
 List<Transaction> dummyTransaction = [
   Transaction(
     id: 1,
     productId: 1,
-    roomId: '1',
-    tax: 10000,
+    roomId: 1,
+    tax: 1000,
     negotiable: true,
     status: Status.join,
+    statusString: 'JOIN',
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     product: dummyProduct[0],
@@ -114,10 +118,11 @@ List<Transaction> dummyTransaction = [
   Transaction(
     id: 2,
     productId: 2,
-    roomId: '2',
-    tax: 10000,
+    roomId: 2,
+    tax: 1000,
     negotiable: true,
-    status: Status.join,
+    status: Status.paid,
+    statusString: 'DIBAYAR',
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     product: dummyProduct[1],
@@ -126,10 +131,11 @@ List<Transaction> dummyTransaction = [
   Transaction(
     id: 3,
     productId: 3,
-    roomId: '3',
-    tax: 10000,
+    roomId: 3,
+    tax: 1000,
     negotiable: true,
-    status: Status.join,
+    status: Status.doneProcessed,
+    statusString: 'DIPROSES',
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     product: dummyProduct[2],
@@ -138,10 +144,11 @@ List<Transaction> dummyTransaction = [
   Transaction(
     id: 4,
     productId: 4,
-    roomId: '4',
-    tax: 10000,
+    roomId: 4,
+    tax: 1000,
     negotiable: true,
-    status: Status.join,
+    status: Status.sent,
+    statusString: 'DIKIRIM',
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     product: dummyProduct[3],
@@ -150,10 +157,11 @@ List<Transaction> dummyTransaction = [
   Transaction(
     id: 5,
     productId: 5,
-    roomId: '5',
-    tax: 10000,
+    roomId: 5,
+    tax: 1000,
     negotiable: true,
-    status: Status.join,
+    status: Status.sentSuccess,
+    statusString: 'SELESAI',
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     product: dummyProduct[4],
@@ -162,25 +170,26 @@ List<Transaction> dummyTransaction = [
   Transaction(
     id: 6,
     productId: 6,
-    roomId: '6',
-    tax: 10000,
+    roomId: 6,
+    tax: 1000,
     negotiable: true,
-    status: Status.join,
+    status: Status.dibatalkan,
+    statusString: 'DIBATALKAN',
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     product: dummyProduct[5],
     room: dummyRoom[5],
   ),
   Transaction(
-    id: 7,
-    productId: 7,
-    roomId: '7',
-    tax: 10000,
-    negotiable: true,
-    status: Status.join,
-    createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
-    product: dummyProduct[6],
-    room: dummyRoom[6],
-  ),
+      id: 7,
+      productId: 7,
+      roomId: 7,
+      tax: 1000,
+      negotiable: true,
+      status: Status.notJoin,
+      statusString: 'NOTJOIN',
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      product: dummyProduct[6],
+      room: dummyRoom[6])
 ];

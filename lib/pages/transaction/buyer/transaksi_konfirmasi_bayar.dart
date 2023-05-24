@@ -86,7 +86,6 @@ class _TransaksiKonfirmasiBayarState extends State<TransaksiKonfirmasiBayar> {
               ),
               AppTextField(
                 controller: _catatanController,
-                height: 80,
                 isExpanded: true,
                 useMargin: false,
                 hintText: 'Tulis catatan untuk penjual',

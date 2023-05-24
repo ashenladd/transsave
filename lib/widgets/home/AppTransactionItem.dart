@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:transsave/model/TransactionModel.dart';
 import 'package:transsave/themes/color.dart';
 import 'package:transsave/themes/fonts.dart';
 
 class AppTransactionItem extends StatelessWidget {
-  final Map dummyBarang = {
-    'kategori': 'Fisik',
-    'name': 'Poco F4 6/128 Hitam ',
-    'harga': 2500000,
-    'img': 'assets/transaction/dummy_barang.png'
-  };
+  final Transaction transaction;
 
-  AppTransactionItem({super.key});
+  AppTransactionItem({super.key, required this.transaction});
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +30,7 @@ class AppTransactionItem extends StatelessWidget {
       height: 160,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,11 +56,11 @@ class AppTransactionItem extends StatelessWidget {
             height: 10,
           ),
           Text(
-            dummyBarang['name'],
+            transaction.product.name,
             style: subtitleStyle2,
           ),
           Text(
-            'Rp ${dummyBarang['harga'].toString()}',
+            'Rp ${transaction.product.price}',
             style: mainStyle.copyWith(fontWeight: FontWeight.w600),
           ),
           SizedBox(
@@ -73,7 +70,7 @@ class AppTransactionItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'DIKIRIM',
+                '${transaction.statusString}',
                 style: subtitleStyle2.copyWith(color: AppColor.mainRed),
               ),
               Icon(

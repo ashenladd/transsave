@@ -12,31 +12,34 @@ class AppTextField extends StatelessWidget {
   final bool isExpanded;
   final TextStyle? hintStyle;
   final int maxLines;
-  final double height;
-  final double width;
+  final TextInputType? keyboardType;
 
-  const AppTextField({
-    super.key,
-    this.controller,
-    this.labelText,
-    this.obscureText = false,
-    this.suffixIcon,
-    this.hintText,
-    this.useMargin = true,
-    this.isExpanded = false,
-    this.hintStyle,
-    this.height = 45,
-    this.width = 275,
-    this.maxLines = 1,
-  });
+  final double width;
+  final String? Function(String?)? validator;
+
+  const AppTextField(
+      {super.key,
+      this.controller,
+      this.labelText,
+      this.obscureText = false,
+      this.suffixIcon,
+      this.hintText,
+      this.useMargin = true,
+      this.isExpanded = false,
+      this.hintStyle,
+      this.width = 275,
+      this.maxLines = 1,
+      this.validator,
+      this.keyboardType});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: isExpanded ? double.infinity : width,
-      height: height,
       margin: useMargin ? EdgeInsets.symmetric(horizontal: 30) : null,
-      child: TextField(
+      child: TextFormField(
+        keyboardType: keyboardType,
+        validator: validator,
         maxLines: maxLines,
         obscureText: obscureText,
         controller: controller,

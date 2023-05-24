@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:transsave/model/TransactionModel.dart';
 import 'package:transsave/themes/fonts.dart';
 import 'package:transsave/widgets/CustomAppBar.dart';
 import 'package:transsave/widgets/home/AppHistoryTransactionItem.dart';
@@ -34,7 +35,9 @@ class Transaksi extends StatelessWidget {
                       4,
                       (index) => Row(
                             children: [
-                              AppTransactionItem(),
+                              AppTransactionItem(
+                                transaction: dummyTransaction[(index)],
+                              ),
                               SizedBox(
                                 width: 25,
                               )

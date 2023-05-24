@@ -1,5 +1,5 @@
 class Room {
-  String id;
+  int id;
   int sellerId;
   int? buyerId;
   DateTime createdAt;
@@ -33,49 +33,49 @@ class Room {
 //Create 7 dummyRoom
 List<Room> dummyRoom = [
   Room(
-    id: '1',
+    id: 1,
     sellerId: 1,
     buyerId: 2,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
   ),
   Room(
-    id: '2',
+    id: 2,
     sellerId: 1,
     buyerId: 3,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
   ),
   Room(
-    id: '3',
+    id: 3,
     sellerId: 1,
     buyerId: 4,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
   ),
   Room(
-    id: '4',
+    id: 4,
     sellerId: 1,
     buyerId: 5,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
   ),
   Room(
-    id: '5',
+    id: 5,
     sellerId: 1,
     buyerId: 6,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
   ),
   Room(
-    id: '6',
+    id: 6,
     sellerId: 1,
     buyerId: 7,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
   ),
   Room(
-    id: '7',
+    id: 7,
     sellerId: 1,
     buyerId: 8,
     createdAt: DateTime.now(),
