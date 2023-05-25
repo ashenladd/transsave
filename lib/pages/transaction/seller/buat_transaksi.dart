@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
+import 'package:transsave/controller/ProductController.dart';
 import 'package:transsave/controller/TransactionController.dart';
 import 'package:transsave/model/TransactionModel.dart';
 import 'package:transsave/pages/transaction/seller/transaksi_seller.dart';
@@ -12,6 +13,7 @@ import 'package:transsave/widgets/transaction_seller/AppUploadContainer.dart';
 import 'package:transsave/widgets/CustomAppBar.dart';
 import 'dart:math';
 
+import '../../../controller/RoomController.dart';
 import '../../../model/ProductModel.dart';
 import '../../../model/RoomModel.dart';
 import '../../../themes/color.dart';
@@ -29,9 +31,12 @@ class _BuatTransaksiState extends State<BuatTransaksi> {
   final _formKey = GlobalKey<FormState>();
   final TransactionController transactionController =
       Get.find<TransactionController>();
+  final ProductController productController = Get.find<ProductController>();
+  final RoomController roomController = Get.find<RoomController>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _descController = TextEditingController();
+  final TextEditingController _ongkosKirimController = TextEditingController();
   String? _dropdownValue = 'Fisik';
   bool isNego = false;
 
@@ -39,24 +44,24 @@ class _BuatTransaksiState extends State<BuatTransaksi> {
     final FormState form = _formKey.currentState!;
     if (form.validate()) {
       Product product = Product(
-          id: Random().nextInt(1000) + 1,
+          id: DateTime.now().microsecondsSinceEpoch,
           name: _nameController.text,
           price: int.parse(_priceController.text),
-          category: Category.Fisik,
+          category: Category.fromString(_dropdownValue!),
           desc: _descController.text,
           images: '',
           createdAt: DateTime.now(),
           updatedAt: DateTime.now());
       Room room = Room(
-          id: Random().nextInt(1000) + 1,
-          sellerId: Random().nextInt(1000) + 1,
+          id: DateTime.now().microsecondsSinceEpoch,
+          sellerId: DateTime.now().microsecondsSinceEpoch,
           createdAt: DateTime.now(),
           updatedAt: DateTime.now());
       Transaction transaction = Transaction(
-          id: Random().nextInt(1000) + 1,
+          id: DateTime.now().microsecondsSinceEpoch,
           productId: product.id,
           roomId: room.id,
-          tax: 1000,
+          tax: 10000,
           negotiable: isNego ? true : false,
           status: Status.notJoin,
           statusString: 'NOT JOIN',
@@ -66,8 +71,10 @@ class _BuatTransaksiState extends State<BuatTransaksi> {
           room: room);
 
       print('Form is valid');
+      productController.addProduct(product);
+      roomController.addRoom(room);
       transactionController.addTransaction(transaction);
-      Get.toNamed(TransaksiSeller.routeName);
+      Get.toNamed(TransaksiSeller.routeName, arguments: transaction.id);
     } else {
       print('Form is invalid');
     }
@@ -241,6 +248,7 @@ class _BuatTransaksiState extends State<BuatTransaksi> {
                                 height: 5,
                               ),
                               AppTextField(
+                                controller: _ongkosKirimController,
                                 keyboardType: TextInputType.number,
                                 validator: (value) => value!.isEmpty
                                     ? 'Ongkos Kirim tidak boleh kosong'

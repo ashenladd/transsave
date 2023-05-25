@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
+import 'package:transsave/controller/ProductController.dart';
+import 'package:transsave/model/ProductModel.dart';
 import 'package:transsave/themes/fonts.dart';
 
 class AppTileItem extends StatelessWidget {
-  AppTileItem({super.key});
-
-  final Map dummyBarang = {
-    'kategori': 'Fisik',
-    'name': 'Poco F4 6/128 Hitam ',
-    'harga': 2500000,
-    'img': 'assets/transaction/dummy_barang.png'
-  };
+  ProductController productController = Get.find<ProductController>();
+  final int id;
+  AppTileItem({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
+    Product product = productController.getProductById(id);
     return Container(
       width: 325,
       height: 126,
@@ -32,7 +31,7 @@ class AppTileItem extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     image: DecorationImage(
-                        image: AssetImage(dummyBarang['img']),
+                        image: NetworkImage('${product.images}'),
                         fit: BoxFit.cover)),
               ),
               SizedBox(
@@ -46,15 +45,15 @@ class AppTileItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        dummyBarang['kategori'],
+                        '${product.category == Category.Fisik ? "Fisik" : "Digital"}',
                         style: itemCategoryStyle,
                       ),
                       Text(
-                        dummyBarang['name'],
+                        '${product.name}',
                         style: itemTitleStyle,
                       ),
                       Text(
-                        "Rp. ${dummyBarang['harga'].toString()}",
+                        "Rp ${product.price}",
                         style: itemPriceStyle,
                       ),
                     ],
@@ -77,7 +76,7 @@ class AppTileItem extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               image: DecorationImage(
-                                  image: AssetImage(dummyBarang['img']),
+                                  image: NetworkImage('${product.images}'),
                                   fit: BoxFit.cover)),
                         ))),
           )

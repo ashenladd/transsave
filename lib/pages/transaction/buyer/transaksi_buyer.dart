@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:transsave/controller/TransactionController.dart';
 import 'package:transsave/pages/transaction/seller/transaksi_seller.dart';
 import 'package:transsave/themes/color.dart';
 import 'package:transsave/widgets/AppChatContainer.dart';
@@ -26,8 +28,9 @@ class TransaksiBuyer extends StatefulWidget {
 }
 
 class _TransaksiBuyerState extends State<TransaksiBuyer> {
-  Status status = Status.join;
-  Nego nego = Nego.negoAccepted;
+  int id = Get.arguments;
+
+  Nego nego = Nego.nego;
   // bool isJoin = true;
   // bool isPaid = false;
   // bool isThereNego = false;
@@ -36,9 +39,14 @@ class _TransaksiBuyerState extends State<TransaksiBuyer> {
   // bool isSent = false;
   // bool isSentSuccess = false;
 
+  TransactionController transactionController =
+      Get.find<TransactionController>();
+
   @override
   Widget build(BuildContext context) {
-    bool isButtonActive = status == Status.join && nego == Nego.notNego;
+    Transaction transaction = transactionController.getTransactionById(id);
+    bool isButtonActive =
+        transaction.status == Status.join && nego == Nego.notNego;
     return Scaffold(
       backgroundColor: AppColor.backgroundColor2,
       appBar: CustomAppBar(
@@ -49,13 +57,13 @@ class _TransaksiBuyerState extends State<TransaksiBuyer> {
               child: Column(
         children: [
           AppTransactionStep(
-            status: status,
+            status: transaction.status,
           ),
           SizedBox(
             height: 20,
           ),
           AppRectangleBuyer(
-            status: status,
+            status: transaction.status,
             nego: nego,
           ),
           SizedBox(
@@ -71,19 +79,21 @@ class _TransaksiBuyerState extends State<TransaksiBuyer> {
                   SizedBox(
                     height: 8,
                   ),
-                  AppTileItem(),
+                  AppTileItem(
+                    id: transaction.productId,
+                  ),
                   SizedBox(
                     height: 20,
                   ),
                   AppUppersideBuyer(
-                    status: status,
+                    transaction: transaction,
                     nego: nego,
                   ),
                   SizedBox(
                     height: 12,
                   ),
                   AppBottomsideBuyer(
-                    status: status,
+                    status: transaction.status,
                     nego: nego,
                   ),
                   SizedBox(

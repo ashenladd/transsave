@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:transsave/model/TransactionModel.dart';
 
+import '../../controller/TransactionController.dart';
 import '../../themes/color.dart';
 import '../../themes/fonts.dart';
 
 class AppDarkContainerSeller extends StatelessWidget {
+  TransactionController transactionController =
+      Get.find<TransactionController>();
   // final bool isJoin;
   // final bool isPaid;
   // final bool isThereNego;
@@ -12,14 +16,13 @@ class AppDarkContainerSeller extends StatelessWidget {
   // final bool isSent;
   // final bool isSentSuccess;
 
-  final Status status;
+  final int id;
   final Nego nego;
 
-  const AppDarkContainerSeller(
-      {super.key, required this.status, required this.nego});
+  AppDarkContainerSeller({super.key, required this.id, required this.nego});
 
-  Widget getContainerContent() {
-    if (status == Status.join && nego == Nego.nego) {
+  Widget getContainerContent(Transaction transaction) {
+    if (transaction.status == Status.join && nego == Nego.nego) {
       return Column(
         children: [
           Row(
@@ -31,7 +34,7 @@ class AppDarkContainerSeller extends StatelessWidget {
                     color: Colors.white.withOpacity(0.4)),
               ),
               Text(
-                'Rp. 2.500.000',
+                'Rp. {transaction.product.price}',
                 style: subtitleStyle2.copyWith(color: Colors.white),
               )
             ],
@@ -53,7 +56,7 @@ class AppDarkContainerSeller extends StatelessWidget {
           )
         ],
       );
-    } else if (status == Status.sent) {
+    } else if (transaction.status == Status.sent) {
       return Column(
         children: [
           Row(
@@ -65,7 +68,7 @@ class AppDarkContainerSeller extends StatelessWidget {
                     color: Colors.white.withOpacity(0.4)),
               ),
               Text(
-                'Rp. 2.500.000',
+                'Rp. ${transaction.product.price}',
                 style: subtitleStyle2.copyWith(color: Colors.white),
               )
             ],
@@ -79,7 +82,7 @@ class AppDarkContainerSeller extends StatelessWidget {
                     color: Colors.white.withOpacity(0.4)),
               ),
               Text(
-                'Rp. 15.000',
+                'Rp. ?',
                 style: subtitleStyle2.copyWith(color: Colors.white),
               )
             ],
@@ -97,7 +100,7 @@ class AppDarkContainerSeller extends StatelessWidget {
                     color: Colors.white.withOpacity(0.4)),
               ),
               Text(
-                'Rp. 2.315.000',
+                'Rp. ${transaction.product.price - transaction.tax}',
                 style: subtitleStyle2.copyWith(color: Colors.white),
               )
             ],
@@ -130,7 +133,7 @@ class AppDarkContainerSeller extends StatelessWidget {
                     color: Colors.white.withOpacity(0.4)),
               ),
               Text(
-                'Rp. 15.000',
+                'Rp. ?',
                 style: subtitleStyle2.copyWith(color: Colors.white),
               )
             ],
@@ -166,6 +169,10 @@ class AppDarkContainerSeller extends StatelessWidget {
           color: AppColor.backgroundColor3,
         ),
         padding: EdgeInsets.symmetric(horizontal: 25, vertical: 14),
-        child: getContainerContent());
+        child: GetBuilder<TransactionController>(builder: (context) {
+          Transaction transaction =
+              transactionController.getTransactionById(id);
+          return getContainerContent(transaction);
+        }));
   }
 }

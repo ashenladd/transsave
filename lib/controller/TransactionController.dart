@@ -22,4 +22,14 @@ class TransactionController extends GetxController {
     _transactions.add(transaction);
     update();
   }
+
+  //Method get transaction by id
+  Transaction getTransactionById(int id) {
+    return _transactions.firstWhere((transaction) => transaction.id == id);
+  }
+
+  //Method get transaction by room id
+  Transaction getTransactionByRoomId(int id) {
+    return _transactions.firstWhere((transaction) => transaction.roomId == id);
+  }
 }

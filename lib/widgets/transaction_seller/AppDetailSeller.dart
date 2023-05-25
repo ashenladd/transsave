@@ -1,22 +1,19 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:transsave/pages/transaction/buyer/transaksi_buyer.dart';
 
+import '../../controller/TransactionController.dart';
 import '../../model/TransactionModel.dart';
 import '../../themes/fonts.dart';
 
 class AppDetailSeller extends StatelessWidget {
-  // final bool isJoin;
-  // final bool isPaid;
-  // final bool isThereNego;
-  // final bool isDoneProcessed;
-  // final bool isSent;
-  // final bool isSentSuccess;
-  final Status status;
+  Transaction transaction;
 
-  const AppDetailSeller({
+  AppDetailSeller({
     super.key,
-    required this.status,
+    required this.transaction,
   });
 
   Widget getDetailBarang() {
@@ -33,7 +30,7 @@ class AppDetailSeller extends StatelessWidget {
                 ),
               ),
               Text(
-                'Aktif',
+                '${transaction.negotiable ? 'Aktif' : 'Non-Aktif'}',
                 style: subtitleStyle2.copyWith(color: Colors.black),
               )
             ],
@@ -51,7 +48,7 @@ class AppDetailSeller extends StatelessWidget {
                 ),
               ),
               Text(
-                'Rp. 0',
+                'Rp. ${transaction.tax}',
                 style: subtitleStyle2.copyWith(color: Colors.black),
               )
             ],
@@ -177,20 +174,18 @@ class AppDetailSeller extends StatelessWidget {
   }
 
   Widget getContent() {
-    if (status == Status.notJoin) {
-      return getDetailBarang();
-    } else if (status == Status.join) {
-      return getDetailBarang();
-    } else if (status == Status.paid) {
-      return getDetailBarang();
-    } else if (status == Status.doneProcessed) {
-      return getDetailPengiriman();
-    } else if (status == Status.sent) {
-      return getDetailPengiriman();
-    } else if (status == Status.sentSuccess) {
-      return getDetailPengiriman();
+    switch (transaction.status) {
+      case Status.doneProcessed:
+      case Status.sent:
+      case Status.sentSuccess:
+        return getDetailPengiriman();
+      case Status.notJoin:
+      case Status.join:
+      case Status.paid:
+        return getDetailBarang();
+      default:
+        return getDetailBarang();
     }
-    return getDetailBarang();
   }
 
   @override

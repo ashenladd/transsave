@@ -15,30 +15,42 @@ class AppUppersideBuyer extends StatelessWidget {
   // final bool isSent;
   // final bool isSentSuccess;
 
-  final Status status;
+  final Transaction transaction;
   final Nego nego;
 
   const AppUppersideBuyer({
     super.key,
-    required this.status,
+    required this.transaction,
     required this.nego,
   });
 
   Widget getContent() {
-    if (status == Status.join && nego == Nego.negoAccepted) {
-      return AppDarkContainerBuyer();
-    } else if (status == Status.join && nego == Nego.notNego) {
-      return AppDarkContainerBuyer();
-    } else if (status == Status.paid) {
-      return AppDarkContainerBuyer();
-    } else if (status == Status.doneProcessed) {
-      return AppDarkContainerBuyer();
-    } else if (status == Status.sent) {
+    if (transaction.status == Status.join && nego == Nego.negoAccepted) {
+      return AppDarkContainerBuyer(
+        transaction: transaction,
+      );
+    } else if (transaction.status == Status.join && nego == Nego.notNego) {
+      return AppDarkContainerBuyer(
+        transaction: transaction,
+      );
+    } else if (transaction.status == Status.paid) {
+      return AppDarkContainerBuyer(
+        transaction: transaction,
+      );
+    } else if (transaction.status == Status.doneProcessed) {
+      return AppDarkContainerBuyer(
+        transaction: transaction,
+      );
+    } else if (transaction.status == Status.sent) {
       return AppDetailBuyer();
-    } else if (status == Status.sentSuccess) {
-      return AppDarkContainerBuyer();
+    } else if (transaction.status == Status.sentSuccess) {
+      return AppDarkContainerBuyer(
+        transaction: transaction,
+      );
     }
-    return AppDarkContainerBuyer();
+    return AppDarkContainerBuyer(
+      transaction: transaction,
+    );
   }
 
   @override

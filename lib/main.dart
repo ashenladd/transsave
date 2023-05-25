@@ -51,10 +51,9 @@ class MyApp extends StatelessWidget {
               page: () => const TransaksiKonfirmasiBayar()),
           GetPage(
               name: TransaksiKonfirmasiJoin.routeName,
-              page: () => const TransaksiKonfirmasiJoin()),
+              page: () => TransaksiKonfirmasiJoin()),
           GetPage(
-              name: TransaksiSeller.routeName,
-              page: () => const TransaksiSeller()),
+              name: TransaksiSeller.routeName, page: () => TransaksiSeller()),
           GetPage(
               name: BuatTransaksi.routeName, page: () => const BuatTransaksi()),
           GetPage(

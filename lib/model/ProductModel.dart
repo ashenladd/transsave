@@ -2,8 +2,8 @@ enum Category {
   Fisik,
   Digital;
 
-  factory Category.fromJson(String json) {
-    switch (json) {
+  factory Category.fromString(String str) {
+    switch (str.toLowerCase()) {
       case 'fisik':
         return Category.Fisik;
       case 'digital':

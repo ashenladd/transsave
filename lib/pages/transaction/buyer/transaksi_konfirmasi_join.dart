@@ -3,22 +3,30 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:transsave/controller/TransactionController.dart';
+import 'package:transsave/model/TransactionModel.dart';
 import 'package:transsave/pages/transaction/buyer/transaksi_buyer.dart';
 import 'package:transsave/widgets/CustomAppBar.dart';
 import 'package:transsave/widgets/auth/AppButton.dart';
 import 'package:transsave/widgets/transaction_buyer/AppDarkContainerBuyer.dart';
 
+import '../../../model/ProductModel.dart';
 import '../../../themes/color.dart';
 import '../../../themes/fonts.dart';
 
 class TransaksiKonfirmasiJoin extends StatelessWidget {
+  int argumen = Get.arguments;
   static String routeName = '/transaksi_konfirmasi_join';
-  const TransaksiKonfirmasiJoin({
+  TransaksiKonfirmasiJoin({
     super.key,
   });
 
+  TransactionController transactionController =
+      Get.find<TransactionController>();
+
   @override
   Widget build(BuildContext context) {
+    Transaction transaction = transactionController.getTransactionById(argumen);
     return Scaffold(
       backgroundColor: AppColor.backgroundColor2,
       appBar: CustomAppBar(leading: Icon(Icons.close)),
@@ -66,7 +74,7 @@ class TransaksiKonfirmasiJoin extends StatelessWidget {
                             color: Colors.white.withOpacity(0.4)),
                       ),
                       Text(
-                        'Poco F4 6/128 Hitam',
+                        '${transaction.product.name}',
                         style: subtitleStyle2.copyWith(color: Colors.white),
                       )
                     ],
@@ -83,7 +91,7 @@ class TransaksiKonfirmasiJoin extends StatelessWidget {
                             color: Colors.white.withOpacity(0.4)),
                       ),
                       Text(
-                        'Rp. 2.500.000',
+                        'Rp. ${transaction.product.price}',
                         style: subtitleStyle2.copyWith(color: Colors.white),
                       )
                     ],
@@ -100,7 +108,7 @@ class TransaksiKonfirmasiJoin extends StatelessWidget {
                             color: Colors.white.withOpacity(0.4)),
                       ),
                       Text(
-                        'Fisik',
+                        '${transaction.product.category == Category.Fisik ? 'Fisik' : 'Digital'}',
                         style: subtitleStyle2.copyWith(color: Colors.white),
                       )
                     ],
@@ -133,7 +141,8 @@ class TransaksiKonfirmasiJoin extends StatelessWidget {
           AppButton(
             text: 'JOIN TRANSAKSI',
             width: 215,
-            onTap: () => Get.toNamed(TransaksiBuyer.routeName),
+            onTap: () => Get.toNamed(TransaksiBuyer.routeName,
+                arguments: transaction.id),
           )
         ],
       )),

@@ -4,6 +4,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:transsave/controller/ProductController.dart';
+import 'package:transsave/controller/RoomController.dart';
 import 'package:transsave/controller/TransactionController.dart';
 import 'package:transsave/model/ProductModel.dart';
 import 'package:transsave/model/TransactionModel.dart';
@@ -18,6 +20,8 @@ import '../../widgets/home/CustomBottomAppBart.dart';
 class Home extends StatelessWidget {
   TransactionController transactionController =
       Get.put(TransactionController());
+  ProductController productController = Get.put(ProductController());
+  RoomController roomController = Get.put(RoomController());
 
   Home({super.key});
 
@@ -175,10 +179,6 @@ class Home extends StatelessWidget {
                           ));
                         }),
                       ),
-                      AppButton(
-                        onTap: () => transactionController
-                            .addTransaction(dummyTransaction[0]),
-                      )
                     ]),
               )
             ],

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:transsave/model/TransactionModel.dart';
 
 import '../../themes/color.dart';
 import '../../themes/fonts.dart';
 
 class AppDarkContainerBuyer extends StatelessWidget {
+  final Transaction transaction;
   const AppDarkContainerBuyer({
     super.key,
+    required this.transaction,
   });
 
   @override
@@ -47,7 +50,7 @@ class AppDarkContainerBuyer extends StatelessWidget {
                           color: Colors.white.withOpacity(0.4)),
                     ),
                     Text(
-                      'Rp. 15.000',
+                      'Rp. ?',
                       style: subtitleStyle2.copyWith(color: Colors.white),
                     )
                   ],
@@ -66,7 +69,7 @@ class AppDarkContainerBuyer extends StatelessWidget {
                             color: Colors.white.withOpacity(0.4)),
                       ),
                       Text(
-                        '1000 gr',
+                        '? gr',
                         style: subtitleStyle2.copyWith(color: Colors.white),
                       )
                     ],
@@ -80,7 +83,7 @@ class AppDarkContainerBuyer extends StatelessWidget {
                           color: Colors.white.withOpacity(0.4)),
                     ),
                     Text(
-                      'Rp. 2.500',
+                      'Rp. ${transaction.tax}',
                       style: subtitleStyle2.copyWith(color: Colors.white),
                     )
                   ],
