@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
+import 'package:transsave/constant/api.dart';
 import 'package:transsave/controller/ProductController.dart';
+import 'package:transsave/controller/TransactionController.dart';
 import 'package:transsave/model/ProductModel.dart';
+import 'package:transsave/model/TransactionModel.dart';
 import 'package:transsave/themes/fonts.dart';
 
 class AppTileItem extends StatelessWidget {
-  ProductController productController = Get.find<ProductController>();
-  final int id;
+  TransactionController transactionController =
+      Get.find<TransactionController>();
+  final String id;
   AppTileItem({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
-    Product product = productController.getProductById(id);
+    Transaction transaction = transactionController.getTransactionById(id);
     return Container(
       width: 325,
       height: 126,
@@ -31,7 +35,8 @@ class AppTileItem extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     image: DecorationImage(
-                        image: NetworkImage('${product.images}'),
+                        image: NetworkImage(
+                            '${APIService.image + transaction.product.images!}'),
                         fit: BoxFit.cover)),
               ),
               SizedBox(
@@ -45,41 +50,21 @@ class AppTileItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        '${product.category == Category.Fisik ? "Fisik" : "Digital"}',
+                        '${transaction.product.category == Category.Fisik ? "Fisik" : "Digital"}',
                         style: itemCategoryStyle,
                       ),
                       Text(
-                        '${product.name}',
+                        '${transaction.product.name}',
                         style: itemTitleStyle,
                       ),
                       Text(
-                        "Rp ${product.price}",
+                        "Rp ${transaction.product.price}",
                         style: itemPriceStyle,
                       ),
                     ],
                   ))
             ],
           ),
-          SizedBox(
-            height: 6,
-          ),
-          Container(
-            width: 110,
-            height: 20,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: List.generate(
-                    4,
-                    (index) => Container(
-                          width: 20,
-                          height: 20,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              image: DecorationImage(
-                                  image: NetworkImage('${product.images}'),
-                                  fit: BoxFit.cover)),
-                        ))),
-          )
         ],
       ),
     );

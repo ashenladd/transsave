@@ -1,9 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
+import 'package:transsave/controller/UserController.dart';
 import 'package:transsave/pages/auth/sign_in.dart';
+import 'package:http/http.dart' as http;
 
+import '../../constant/api.dart';
+import '../../model/UserModel.dart';
+import '../../services/RequestService.dart';
 import '../../themes/color.dart';
 import '../../themes/fonts.dart';
 
@@ -30,6 +38,37 @@ class _SignUpState extends State<SignUp> {
   bool showPassword = false;
   bool showConfirmPassword = false;
 
+  Future<void> register() async {
+    final Map<String, dynamic> payload = {
+      "name": _nameController.text,
+      "username": _usernameController.text,
+      "phone_number": _noHandphoneController.text,
+      "email": _emailController.text,
+      "password": _passwordController.text,
+      "passwordConfirmation": _confirmPasswordController.text
+    };
+    final response = await RequestService.post(APIService.register, payload);
+    final Map<String, dynamic> result = json.decode(response.body);
+    if (response.statusCode == 200) {
+      User user = User(
+        nama: _nameController.text,
+        username: _usernameController.text,
+        noHandphone: int.parse(_noHandphoneController.text),
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      Get.offAllNamed(SignIn.routeName);
+    } else {
+      String errorMessagesString = '';
+      dynamic errorMessages = result["errors"];
+      for (var error in errorMessages!.values)
+        errorMessagesString += '$error\n';
+
+      Get.snackbar('$errorMessagesString'.toUpperCase(), 'Coba lagi');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,8 +81,7 @@ class _SignUpState extends State<SignUp> {
         child: SingleChildScrollView(
           child: Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(32),
-                color: AppColor.backgroundColor2),
+                borderRadius: BorderRadius.circular(32), color: Colors.white),
             child: Column(
               children: [
                 SizedBox(
@@ -82,6 +120,10 @@ class _SignUpState extends State<SignUp> {
                 SizedBox(
                   height: 30,
                 ),
+                AppTextField(controller: _emailController, labelText: 'Email'),
+                SizedBox(
+                  height: 30,
+                ),
                 AppTextField(
                   controller: _passwordController,
                   labelText: 'Password',
@@ -110,6 +152,9 @@ class _SignUpState extends State<SignUp> {
                 ),
                 AppButton(
                   text: "Daftar",
+                  onTap: () {
+                    register();
+                  },
                 ),
                 SizedBox(
                   height: 15,

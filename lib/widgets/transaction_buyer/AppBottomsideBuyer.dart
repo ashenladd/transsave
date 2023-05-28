@@ -15,27 +15,27 @@ class AppBottomsideBuyer extends StatelessWidget {
   // final bool isDoneProcessed;
   // final bool isSent;
   // final bool isSentSuccess;
-  final Status status;
+  final Transaction transaction;
   final Nego nego;
 
   const AppBottomsideBuyer(
-      {super.key, required this.status, required this.nego});
+      {super.key, required this.transaction, required this.nego});
 
   Widget getContent() {
-    if (status == Status.join && nego == Nego.negoAccepted) {
-      return AppKeteranganContainerBuyer();
-    } else if (status == Status.join && nego == Nego.notNego) {
-      return AppKeteranganContainerBuyer();
-    } else if (status == Status.paid) {
+    if (transaction.status == Status.join && nego == Nego.negoAccepted) {
+      return AppKeteranganContainerBuyer(id: transaction.id);
+    } else if (transaction.status == Status.join && nego == Nego.notNego) {
+      return AppKeteranganContainerBuyer(id: transaction.id);
+    } else if (transaction.status == Status.paid) {
       return AppDetailBayar();
-    } else if (status == Status.doneProcessed) {
+    } else if (transaction.status == Status.doneProcessed) {
       return AppDetailBayar();
-    } else if (status == Status.sent) {
+    } else if (transaction.status == Status.sent) {
       return AppDarkContainerSecond();
-    } else if (status == Status.sentSuccess) {
-      return AppKeteranganContainerBuyer();
+    } else if (transaction.status == Status.sentSuccess) {
+      return AppKeteranganContainerBuyer(id: transaction.id);
     }
-    return AppKeteranganContainerBuyer();
+    return AppKeteranganContainerBuyer(id: transaction.id);
   }
 
   @override

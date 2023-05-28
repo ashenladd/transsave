@@ -32,7 +32,7 @@ class _AppJoinPopupState extends State<AppJoinPopup> {
     if (form.validate()) {
       try {
         Transaction transaction = transactionController
-            .getTransactionByRoomId(int.parse(_kodeJoinController.text));
+            .getTransactionByRoomId(_kodeJoinController.text);
 
         Get.toNamed(TransaksiKonfirmasiJoin.routeName,
             arguments: transaction.id);

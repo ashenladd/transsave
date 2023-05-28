@@ -16,7 +16,7 @@ class AppDarkContainerSeller extends StatelessWidget {
   // final bool isSent;
   // final bool isSentSuccess;
 
-  final int id;
+  final String id;
   final Nego nego;
 
   AppDarkContainerSeller({super.key, required this.id, required this.nego});
@@ -34,7 +34,7 @@ class AppDarkContainerSeller extends StatelessWidget {
                     color: Colors.white.withOpacity(0.4)),
               ),
               Text(
-                'Rp. {transaction.product.price}',
+                'Rp. ${transaction.product.price}',
                 style: subtitleStyle2.copyWith(color: Colors.white),
               )
             ],
@@ -82,7 +82,7 @@ class AppDarkContainerSeller extends StatelessWidget {
                     color: Colors.white.withOpacity(0.4)),
               ),
               Text(
-                'Rp. ?',
+                'Rp. ${transaction.shipping_fee}',
                 style: subtitleStyle2.copyWith(color: Colors.white),
               )
             ],
@@ -100,7 +100,7 @@ class AppDarkContainerSeller extends StatelessWidget {
                     color: Colors.white.withOpacity(0.4)),
               ),
               Text(
-                'Rp. ${transaction.product.price - transaction.tax}',
+                'Rp. ${transaction.product.price - (transaction.tax + transaction.shipping_fee)}',
                 style: subtitleStyle2.copyWith(color: Colors.white),
               )
             ],
@@ -119,7 +119,7 @@ class AppDarkContainerSeller extends StatelessWidget {
                     color: Colors.white.withOpacity(0.4)),
               ),
               Text(
-                'Rp. 2.500.000',
+                'Rp. ${transaction.product.price}',
                 style: subtitleStyle2.copyWith(color: Colors.white),
               )
             ],
@@ -133,7 +133,7 @@ class AppDarkContainerSeller extends StatelessWidget {
                     color: Colors.white.withOpacity(0.4)),
               ),
               Text(
-                'Rp. ?',
+                'Rp. ${transaction.shipping_fee}',
                 style: subtitleStyle2.copyWith(color: Colors.white),
               )
             ],
@@ -151,7 +151,7 @@ class AppDarkContainerSeller extends StatelessWidget {
                     color: Colors.white.withOpacity(0.4)),
               ),
               Text(
-                'Rp. 2.315.000',
+                'Rp. ${transaction.product.price - (transaction.tax + transaction.shipping_fee)}',
                 style: subtitleStyle2.copyWith(color: Colors.white),
               )
             ],

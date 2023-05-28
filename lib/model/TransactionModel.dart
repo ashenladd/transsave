@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:transsave/model/ProductModel.dart';
 
 import 'RoomModel.dart';
@@ -35,21 +36,11 @@ enum Status {
 
 enum Nego { notNego, nego, negoAccepted, negoRejected }
 
-// To parse this JSON data, do
-//
-//     final createTransactionModel = createTransactionModelFromJson(jsonString);
-
-// CreateTransactionModel createTransactionModelFromJson(String str) =>
-//     CreateTransactionModel.fromJson(json.decode(str));
-
-// String createTransactionModelToJson(CreateTransactionModel data) =>
-//     json.encode(data.toJson());
-
 class Transaction {
-  int id;
+  String id;
   int productId;
-  int roomId;
   int tax;
+  int shipping_fee;
   bool negotiable;
   Status status;
   String statusString;
@@ -61,8 +52,8 @@ class Transaction {
   Transaction({
     required this.id,
     required this.productId,
-    required this.roomId,
     required this.tax,
+    required this.shipping_fee,
     required this.negotiable,
     required this.status,
     required this.statusString,
@@ -72,124 +63,22 @@ class Transaction {
     required this.room,
   });
 
-  factory Transaction.fromJson(Map<String, dynamic> json) => Transaction(
-        id: json["id"],
-        productId: json["product_id"],
-        roomId: json["room_id"],
-        tax: json["tax"].toInt(),
-        negotiable: json["negotiable"],
-        status: json["status"],
-        statusString: json["status"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        product: Product.fromJson(json["product"]),
-        room: Room.fromJson(json["room"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "product_id": productId,
-        "room_id": roomId,
-        "tax": tax,
-        "negotiable": negotiable,
-        "status": status,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
-        "product": product.toJson(),
-        "room": room.toJson(),
-      };
+  factory Transaction.fromJson(Map<String, dynamic> json) {
+    return Transaction(
+      id: json["id"],
+      productId: json["product_id"],
+      tax: json["tax"].toInt(),
+      shipping_fee: json['shipping_fee'],
+      negotiable: json["negotiable"],
+      status: json["status"] != null
+          ? Status.fromJson(json["status"])
+          : Status.notJoin,
+      statusString: json["status"] != null ? json["status"] : 'NOT_JOIN',
+      createdAt: DateTime.parse(json["createdAt"]),
+      updatedAt: DateTime.parse(json["updatedAt"]),
+      product: Product.fromJson(json["product"]),
+      room:
+          Room.fromJson(json["room"] is List ? json["room"][0] : json["room"]),
+    );
+  }
 }
-
-//Create 7 dummyTransaction with different status
-List<Transaction> dummyTransaction = [
-  Transaction(
-    id: 1,
-    productId: 1,
-    roomId: 1,
-    tax: 1000,
-    negotiable: true,
-    status: Status.join,
-    statusString: 'JOIN',
-    createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
-    product: dummyProduct[0],
-    room: dummyRoom[0],
-  ),
-  Transaction(
-    id: 2,
-    productId: 2,
-    roomId: 2,
-    tax: 1000,
-    negotiable: true,
-    status: Status.paid,
-    statusString: 'DIBAYAR',
-    createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
-    product: dummyProduct[1],
-    room: dummyRoom[1],
-  ),
-  Transaction(
-    id: 3,
-    productId: 3,
-    roomId: 3,
-    tax: 1000,
-    negotiable: true,
-    status: Status.doneProcessed,
-    statusString: 'DIPROSES',
-    createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
-    product: dummyProduct[2],
-    room: dummyRoom[2],
-  ),
-  Transaction(
-    id: 4,
-    productId: 4,
-    roomId: 4,
-    tax: 1000,
-    negotiable: true,
-    status: Status.sent,
-    statusString: 'DIKIRIM',
-    createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
-    product: dummyProduct[3],
-    room: dummyRoom[3],
-  ),
-  Transaction(
-    id: 5,
-    productId: 5,
-    roomId: 5,
-    tax: 1000,
-    negotiable: true,
-    status: Status.sentSuccess,
-    statusString: 'SELESAI',
-    createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
-    product: dummyProduct[4],
-    room: dummyRoom[4],
-  ),
-  Transaction(
-    id: 6,
-    productId: 6,
-    roomId: 6,
-    tax: 1000,
-    negotiable: true,
-    status: Status.dibatalkan,
-    statusString: 'DIBATALKAN',
-    createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
-    product: dummyProduct[5],
-    room: dummyRoom[5],
-  ),
-  Transaction(
-      id: 7,
-      productId: 7,
-      roomId: 7,
-      tax: 1000,
-      negotiable: true,
-      status: Status.notJoin,
-      statusString: 'NOTJOIN',
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-      product: dummyProduct[6],
-      room: dummyRoom[6])
-];

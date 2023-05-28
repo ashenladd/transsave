@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:transsave/controller/TransactionController.dart';
+import 'package:transsave/model/TransactionModel.dart';
 import 'package:transsave/widgets/CustomAppBar.dart';
 import 'package:transsave/widgets/auth/AppButton.dart';
 import 'package:transsave/widgets/auth/AppTextField.dart';
@@ -15,7 +18,7 @@ import '../../../themes/fonts.dart';
 
 class TransaksiKonfirmasiBayar extends StatefulWidget {
   static String routeName = '/transaksi_konfirmasi_bayar';
-  const TransaksiKonfirmasiBayar({super.key});
+  TransaksiKonfirmasiBayar({super.key});
 
   @override
   State<TransaksiKonfirmasiBayar> createState() =>
@@ -25,6 +28,9 @@ class TransaksiKonfirmasiBayar extends StatefulWidget {
 class _TransaksiKonfirmasiBayarState extends State<TransaksiKonfirmasiBayar> {
   final TextEditingController _catatanController = TextEditingController();
   String? _dropdownValue = 'Dana';
+  TransactionController transactionController =
+      Get.find<TransactionController>();
+  String id = Get.arguments;
 
   void dropdownCallback(String? selectedValue) {
     if (selectedValue is String) {
@@ -36,6 +42,7 @@ class _TransaksiKonfirmasiBayarState extends State<TransaksiKonfirmasiBayar> {
 
   @override
   Widget build(BuildContext context) {
+    Transaction transaction = transactionController.getTransactionById(id);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(
@@ -151,7 +158,7 @@ class _TransaksiKonfirmasiBayarState extends State<TransaksiKonfirmasiBayar> {
                             color: Colors.white.withOpacity(0.4)),
                       ),
                       Text(
-                        'Rp. 2.300.000',
+                        'Rp.  ${transaction.product.price}',
                         style: subtitleStyle2.copyWith(color: Colors.white),
                       )
                     ],
@@ -165,7 +172,7 @@ class _TransaksiKonfirmasiBayarState extends State<TransaksiKonfirmasiBayar> {
                             color: Colors.white.withOpacity(0.4)),
                       ),
                       Text(
-                        'Rp. 15.000',
+                        'Rp. ${transaction.shipping_fee}',
                         style: subtitleStyle2.copyWith(color: Colors.white),
                       )
                     ],
@@ -196,7 +203,7 @@ class _TransaksiKonfirmasiBayarState extends State<TransaksiKonfirmasiBayar> {
                         style: subtitleStyle2.copyWith(color: Colors.white),
                       ),
                       Text(
-                        'Rp. 2.317.500',
+                        'Rp. ${transaction.product.price - (2500 + transaction.shipping_fee)}',
                         style: subtitleStyle2.copyWith(color: Colors.white),
                       )
                     ],
@@ -208,6 +215,11 @@ class _TransaksiKonfirmasiBayarState extends State<TransaksiKonfirmasiBayar> {
               ),
               Center(
                   child: AppButton(
+                onTap: () {
+                  transactionController.updateTransactionStatus(
+                      id, Status.paid);
+                  Get.back();
+                },
                 text: 'BAYAR SEKARANG',
               ))
             ],

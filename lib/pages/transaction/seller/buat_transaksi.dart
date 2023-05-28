@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
+import 'package:transsave/controller/ImageController.dart';
 import 'package:transsave/controller/ProductController.dart';
 import 'package:transsave/controller/TransactionController.dart';
 import 'package:transsave/model/TransactionModel.dart';
@@ -33,48 +34,40 @@ class _BuatTransaksiState extends State<BuatTransaksi> {
       Get.find<TransactionController>();
   final ProductController productController = Get.find<ProductController>();
   final RoomController roomController = Get.find<RoomController>();
+  final ImageController imageController = Get.put(ImageController());
+
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _descController = TextEditingController();
   final TextEditingController _ongkosKirimController = TextEditingController();
+  final TextEditingController _beratController = TextEditingController();
   String? _dropdownValue = 'Fisik';
   bool isNego = false;
 
-  void submit() {
+  void submit() async {
     final FormState form = _formKey.currentState!;
     if (form.validate()) {
-      Product product = Product(
-          id: DateTime.now().microsecondsSinceEpoch,
-          name: _nameController.text,
-          price: int.parse(_priceController.text),
-          category: Category.fromString(_dropdownValue!),
-          desc: _descController.text,
-          images: '',
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now());
-      Room room = Room(
-          id: DateTime.now().microsecondsSinceEpoch,
-          sellerId: DateTime.now().microsecondsSinceEpoch,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now());
-      Transaction transaction = Transaction(
-          id: DateTime.now().microsecondsSinceEpoch,
-          productId: product.id,
-          roomId: room.id,
-          tax: 10000,
-          negotiable: isNego ? true : false,
-          status: Status.notJoin,
-          statusString: 'NOT JOIN',
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-          product: product,
-          room: room);
+      print(imageController.image);
+      Map<String, dynamic> data = {
+        'category': _dropdownValue?.toLowerCase(),
+        'name': _nameController.text,
+        'desc': _descController.text,
+        'price': _priceController.text,
+        'images': imageController.image,
+        'negotiable': isNego ? 'true' : 'false',
+        'shipping_fee': int.parse(_ongkosKirimController.text),
+        'weight': int.parse(_beratController.text),
+        'tax': 2500,
+      };
+      try {
+        Transaction transaction =
+            await transactionController.addTransaction(data);
 
-      print('Form is valid');
-      productController.addProduct(product);
-      roomController.addRoom(room);
-      transactionController.addTransaction(transaction);
-      Get.toNamed(TransaksiSeller.routeName, arguments: transaction.id);
+        await Get.offNamed(TransaksiSeller.routeName,
+            arguments: transaction.id);
+      } catch (e) {
+        Get.snackbar('$e', 'Coba Lagi');
+      }
     } else {
       print('Form is invalid');
     }
@@ -273,6 +266,7 @@ class _BuatTransaksiState extends State<BuatTransaksi> {
                                 height: 5,
                               ),
                               AppTextField(
+                                controller: _beratController,
                                 keyboardType: TextInputType.number,
                                 validator: (value) => value!.isEmpty
                                     ? 'Berat tidak boleh kosong'
@@ -301,7 +295,9 @@ class _BuatTransaksiState extends State<BuatTransaksi> {
                     Center(
                       child: AppButton(
                         text: "BUAT Transaksi",
-                        onTap: () => submit(),
+                        onTap: () {
+                          submit();
+                        },
                       ),
                     )
                   ],

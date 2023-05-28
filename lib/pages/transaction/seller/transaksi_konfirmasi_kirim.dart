@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:transsave/controller/ImageController.dart';
+import 'package:transsave/controller/TransactionController.dart';
+import 'package:transsave/model/TransactionModel.dart';
 import 'package:transsave/themes/fonts.dart';
 import 'package:transsave/widgets/auth/AppButton.dart';
 import 'package:transsave/widgets/auth/AppTextField.dart';
@@ -10,7 +14,7 @@ import 'package:transsave/widgets/CustomAppBar.dart';
 
 class TransaksiKonfirmasiKirim extends StatefulWidget {
   static String routeName = '/transaksi_konfirmasi_kirim';
-  const TransaksiKonfirmasiKirim({super.key});
+  TransaksiKonfirmasiKirim({super.key});
 
   @override
   State<TransaksiKonfirmasiKirim> createState() =>
@@ -18,8 +22,13 @@ class TransaksiKonfirmasiKirim extends StatefulWidget {
 }
 
 class _TransaksiKonfirmasiKirimState extends State<TransaksiKonfirmasiKirim> {
+  String id = Get.arguments;
+  TransactionController transactionController =
+      Get.find<TransactionController>();
+  final ImageController imageController = Get.put(ImageController());
   @override
   Widget build(BuildContext context) {
+    Transaction transaction = transactionController.getTransactionById(id);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(
@@ -99,6 +108,11 @@ class _TransaksiKonfirmasiKirimState extends State<TransaksiKonfirmasiKirim> {
               ),
               Center(
                 child: AppButton(
+                  onTap: () {
+                    transactionController.updateTransactionStatus(
+                        id, Status.sent);
+                    Get.back();
+                  },
                   text: 'Kirim Pesanan',
                 ),
               )

@@ -14,7 +14,6 @@ class ProductController extends GetxController {
 
   //Ganti dengan API
   void setProducts() {
-    _products = dummyProduct;
     update();
   }
 
@@ -27,5 +26,16 @@ class ProductController extends GetxController {
   //Method get product by id
   Product getProductById(int id) {
     return _products.firstWhere((product) => product.id == id);
+  }
+
+  //Method get image
+  String? getImage(int id) {
+    return _products.firstWhere((product) => product.id == id).images;
+  }
+
+  //Method update image
+  void updateImage(int id, String image) {
+    _products.firstWhere((product) => product.id == id).images = image;
+    update();
   }
 }

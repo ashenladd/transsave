@@ -70,7 +70,7 @@ class AppTransactionItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${transaction.statusString}',
+                '${transaction.status.toString().split('.').last}',
                 style: subtitleStyle2.copyWith(color: AppColor.mainRed),
               ),
               Icon(

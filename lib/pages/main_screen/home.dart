@@ -7,19 +7,23 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:transsave/controller/ProductController.dart';
 import 'package:transsave/controller/RoomController.dart';
 import 'package:transsave/controller/TransactionController.dart';
+import 'package:transsave/controller/UserController.dart';
 import 'package:transsave/model/ProductModel.dart';
 import 'package:transsave/model/TransactionModel.dart';
 import 'package:transsave/pages/transaction/seller/buat_transaksi.dart';
+import 'package:transsave/pages/transaction/seller/transaksi_seller.dart';
 import 'package:transsave/themes/fonts.dart';
 import 'package:transsave/widgets/auth/AppButton.dart';
 import 'package:transsave/widgets/home/AppJoinPopup.dart';
 import 'package:transsave/widgets/home/AppTransactionItem.dart';
 
+import '../../model/UserModel.dart';
 import '../../widgets/home/CustomBottomAppBart.dart';
 
 class Home extends StatelessWidget {
   TransactionController transactionController =
       Get.put(TransactionController());
+  UserController userController = Get.put(UserController());
   ProductController productController = Get.put(ProductController());
   RoomController roomController = Get.put(RoomController());
 
@@ -168,9 +172,15 @@ class Home extends StatelessWidget {
                             context.allTransactions.length,
                             (index) => Row(
                               children: [
-                                AppTransactionItem(
-                                  transaction: context.allTransactions[index],
-                                ),
+                                GestureDetector(
+                                    child: AppTransactionItem(
+                                      transaction:
+                                          context.allTransactions[index],
+                                    ),
+                                    onTap: () => Get.toNamed(
+                                        TransaksiSeller.routeName,
+                                        arguments:
+                                            context.allTransactions[index].id)),
                                 SizedBox(
                                   width: 20,
                                 )

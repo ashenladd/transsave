@@ -14,7 +14,6 @@ class RoomController extends GetxController {
 
   //Ganti dengan API
   void setRooms() {
-    _rooms = dummyRoom;
     update();
   }
 

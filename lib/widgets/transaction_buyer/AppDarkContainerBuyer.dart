@@ -50,7 +50,7 @@ class AppDarkContainerBuyer extends StatelessWidget {
                           color: Colors.white.withOpacity(0.4)),
                     ),
                     Text(
-                      'Rp. ?',
+                      'Rp. ${transaction.shipping_fee}',
                       style: subtitleStyle2.copyWith(color: Colors.white),
                     )
                   ],
@@ -69,7 +69,7 @@ class AppDarkContainerBuyer extends StatelessWidget {
                             color: Colors.white.withOpacity(0.4)),
                       ),
                       Text(
-                        '? gr',
+                        '2 gr',
                         style: subtitleStyle2.copyWith(color: Colors.white),
                       )
                     ],

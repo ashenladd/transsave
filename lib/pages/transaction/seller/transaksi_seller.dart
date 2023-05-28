@@ -8,6 +8,7 @@ import 'package:transsave/widgets/transaction_seller/AppKeteranganContainerSelle
 import 'package:transsave/widgets/AppTileItem.dart';
 import 'package:transsave/widgets/AppTransactionStep.dart';
 import 'package:transsave/widgets/CustomAppBar.dart';
+import 'package:transsave/widgets/transaction_seller/AppLowerSide.dart';
 
 import '../../../controller/TransactionController.dart';
 import '../../../model/TransactionModel.dart';
@@ -17,7 +18,7 @@ import '../../../widgets/transaction_seller/AppChoiceButton.dart';
 import '../../../widgets/transaction_seller/AppRectangleSeller.dart';
 
 class TransaksiSeller extends StatefulWidget {
-  int arguments = Get.arguments;
+  String arguments = Get.arguments;
   static String routeName = '/transaksi_seller';
   TransaksiSeller({super.key});
 
@@ -58,7 +59,7 @@ class _TransaksiSellerState extends State<TransaksiSeller> {
     }
 
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         title: 'Transaksi',
       ),
       body: SafeArea(child: SingleChildScrollView(
@@ -69,18 +70,18 @@ class _TransaksiSellerState extends State<TransaksiSeller> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppTransactionStep(status: transaction.status),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               AppRectangleSeller(
                 status: transaction.status,
                 nego: nego,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 27),
+                margin: const EdgeInsets.symmetric(horizontal: 27),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -88,23 +89,20 @@ class _TransaksiSellerState extends State<TransaksiSeller> {
                       'Barang Pembelian',
                       style: mainStyle.copyWith(fontWeight: FontWeight.w600),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     AppTileItem(
-                      id: transaction.productId,
-                    ),
-                    SizedBox(
-                      height: 34,
+                      id: transaction.id,
                     ),
                     !(transaction.status == Status.doneProcessed)
                         ? Center(
                             child: AppJoinCodeContainer(
-                              code: '${transaction.roomId}',
+                              code: '${transaction.room.id}',
                             ),
                           )
-                        : AppKeteranganContainerSeller(),
-                    SizedBox(
+                        : const AppKeteranganContainerSeller(),
+                    const SizedBox(
                       height: 10,
                     ),
                     transaction.status == Status.sentSuccess
@@ -113,43 +111,17 @@ class _TransaksiSellerState extends State<TransaksiSeller> {
                               AppDetailSeller(
                                 transaction: transaction,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               getContainer(transaction)
                             ],
                           )
                         : getContainer(transaction),
-                    SizedBox(
+                    const SizedBox(
                       height: 27,
                     ),
-                    transaction.status == Status.join && nego == Nego.nego
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              AppChoiceButton(
-                                isAgree: true,
-                              ),
-                              AppChoiceButton(
-                                isAgree: false,
-                              ),
-                              AppChatContainer(
-                                isActive: true,
-                              )
-                            ],
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              AppButton(
-                                text: 'BAGIKAN KODE',
-                                width: 233,
-                              ),
-                              AppChatContainer(
-                                isActive: true,
-                              )
-                            ],
-                          ),
+                    AppLowerSide(transaction: transaction, nego: nego)
                   ],
                 ),
               ),

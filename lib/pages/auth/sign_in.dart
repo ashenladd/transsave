@@ -1,12 +1,20 @@
+import 'dart:convert';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:transsave/pages/auth/sign_up.dart';
+import 'package:transsave/services/RequestService.dart';
+import 'package:transsave/services/SecureStorageService.dart';
 import 'package:transsave/themes/color.dart';
 import 'package:transsave/themes/fonts.dart';
 
+import '../../constant/api.dart';
+
 import '../../widgets/auth/AppButton.dart';
 import '../../widgets/auth/AppTextField.dart';
+import '../main_screen/main_page.dart';
 
 class SignIn extends StatefulWidget {
   static String routeName = '/sign_in';
@@ -19,6 +27,30 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
+
+  Future<void> login() async {
+    final Map<String, dynamic> payload = {
+      "username": _usernameController.text,
+      "password": _passwordController.text
+    };
+    final response = await RequestService.post(APIService.login, payload);
+    final Map<String, dynamic> result = json.decode(response.body);
+    if (response.statusCode == 200) {
+      Get.offAllNamed(MainPage.routeName);
+      final data = result['data'];
+      SecureStorageService.writeValue('accessToken', data['accessToken']);
+      SecureStorageService.writeValue('user_id', data['user_id'].toString());
+      print('data: ${data['user_id']}');
+      print(result);
+    } else {
+      String errorMessagesString = '';
+      dynamic errorMessages = result["errors"];
+      for (var error in errorMessages!.values)
+        errorMessagesString += '$error\n';
+
+      Get.snackbar('$errorMessagesString'.toUpperCase(), 'Coba lagi');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +66,7 @@ class _SignInState extends State<SignIn> {
               child: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(32),
-                    color: AppColor.backgroundColor2),
+                    color: Colors.white),
                 child: Column(
                   children: [
                     SizedBox(
@@ -91,6 +123,7 @@ class _SignInState extends State<SignIn> {
                     ),
                     AppButton(
                       text: "Login",
+                      onTap: login,
                     ),
                     SizedBox(
                       height: 15,

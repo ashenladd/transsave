@@ -48,7 +48,7 @@ class AppDetailSeller extends StatelessWidget {
                 ),
               ),
               Text(
-                'Rp. ${transaction.tax}',
+                'Rp. ${transaction.shipping_fee}',
                 style: subtitleStyle2.copyWith(color: Colors.black),
               )
             ],

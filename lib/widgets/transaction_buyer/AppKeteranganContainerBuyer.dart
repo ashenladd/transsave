@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:transsave/controller/TransactionController.dart';
+import 'package:transsave/model/TransactionModel.dart';
 import 'package:transsave/themes/fonts.dart';
 
 class AppKeteranganContainerBuyer extends StatelessWidget {
-  const AppKeteranganContainerBuyer({super.key});
+  TransactionController transactionController =
+      Get.find<TransactionController>();
+  final String id;
+  AppKeteranganContainerBuyer({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
+    Transaction transaction = transactionController.getTransactionById(id);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -31,7 +38,7 @@ class AppKeteranganContainerBuyer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '-',
+                transaction.product.desc,
                 style: subtitleStyle.copyWith(color: Colors.black),
               ),
             ],
